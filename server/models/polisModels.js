@@ -37,10 +37,16 @@ const buySchema = new Schema({
 const Buy = mongoose.model('buy', buySchema);
 
 const pastStockSchema = new Schema({
+<<<<<<< HEAD
     stockSymbol : String,
     changes: [Object]
 })
 
+=======
+  stockSymbol: String,
+  changes: [Object]
+});
+>>>>>>> master
 const PastStock = mongoose.model('pastStocks', pastStockSchema);
 
 module.exports = {

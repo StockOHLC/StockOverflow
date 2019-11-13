@@ -41,7 +41,42 @@ class App extends Component {
     this.firstnameHandler = this.firstnameHandler.bind(this);
     this.lastnameHandler = this.lastnameHandler.bind(this);
   }
- 
+  SignupClick(){
+    fetch('/user/login',{
+      method: 'POST', 
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email_address: this.state.enteredUsername,
+        password: this.state.enteredPassword
+      })
+    })
+    .then(body => body.json())
+    .then(body => {
+      if(body.message === "No Such User"){
+        fetch('/user/signup',{
+          method: 'POST', 
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body:{
+            'email_address':this.state.enteredUsername,
+            'password': this.state.enteredPassword,
+            'first_name': "dummy",
+            'last_name': "dummy"
+          }
+        })
+        .then(data => data.json())
+        .then(data => {
+          alert("account created!")
+        })
+      }
+      else{
+        alert("account already exist!")
+      }
+    });
+  }
   LoginClick(){
     console.log("inside login click")
     fetch('/user/login',{
@@ -56,12 +91,21 @@ class App extends Component {
     })
     .then(body => body.json())
     .then(body => {
-      console.log(body);
-      this.setState({
-        favorites: body.favorites,
-        email:body.email_address,
-        buys:body.buys
-      });
+      if(body.message === "No Such User"){
+        alert('Your password does not match with our data!');
+      }
+      else if(body.message === "Wrong password"){
+        alert('Your password does not match with our data!');
+      }
+      else{
+        alert("welcome!");
+        console.log(body);
+        this.setState({
+          favorites: body.favorites,
+          email:body.email_address,
+          buys:body.buys
+        });
+      }
     });
   }
   stockListChangeHandler(){
@@ -71,7 +115,6 @@ class App extends Component {
       this.setState({whichTab: '2'});
   }
   buysListChangeHandler(){
-    
       this.setState({whichTab: '3'})
   }
   passwordChangeHandler(event){
@@ -84,8 +127,8 @@ class App extends Component {
       this.setState({enteredUsername: event.target.value});
   }
   nameChangeHandler(event){
-      event.preventDefault();
-      this.setState({name: event.target.value});
+    event.preventDefault();
+    this.setState({name: event.target.value});
   }
   togglePopup(newname, newSymbol){
     // console.log('app line 65', newname, newSymbol);
@@ -150,7 +193,6 @@ class App extends Component {
     }
     else if(this.state.whichTab =='2'){
       content = (<div>
-        favorites
         <RenderList list= {this.state.favorites} togglePopup ={this.togglePopup}/>
         </div>
       )
@@ -158,7 +200,6 @@ class App extends Component {
     else if(this.state.whichTab == '3'){
       content =(
         <div>
-          buys
           <RenderList list= {this.state.buys} togglePopup ={this.togglePopup}/>
         </div>
       )
