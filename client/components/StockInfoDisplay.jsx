@@ -17,7 +17,10 @@ const StockInfoDisplay = props => {
   const saveNumberOfShares = e => {
     console.log("save number of shares");
     if (Number(e.target.value) === "NaN") alert("Please type the number!");
-    else updateShare(Number(e.target.value));
+    else {
+      updateShare(Number(e.target.value));
+      console.log(numberOfShare);
+    }
   };
 
   const saveDate = e => {
