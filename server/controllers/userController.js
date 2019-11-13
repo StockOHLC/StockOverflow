@@ -7,6 +7,7 @@ userController.createUser = (req, res, next) => {
   models.User.create({email_address, password, first_name, last_name})
     .then(result => {
       res.locals.userInfo = result
+      res.locals.id = result._id;
       next();
     })
     .catch(err => {
@@ -91,15 +92,16 @@ userController.removeFav = (req, res, next) => {
 userController.verifyUser  = (req, res, next) => {
   const {email_address, password} = req.body;
   models.User.findOne({email_address}, (err, result) => {
-
     // if(result === null) res.render('./../signup');
     // if (err) res.render('/user/signup').json('No Such User!!')
+    console.log("result >>>>>>>>>>>>", result)
     if (result === null) {
       res.locals.userInfo = {message: 'No Such User'}
       next();
     } else {
       if (result.password === password) {
         res.locals.userInfo = result;
+        res.locals.id = result._id;
         next();
       }
       else {

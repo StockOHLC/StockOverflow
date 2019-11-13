@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const stocksRouter = require('./routes/stocksRouter');
 const usersRouter = require('./routes/userRouter');
 const pastStockRouter = require('./routes/pastStocksRouter');
-const messageRouter = require('./routes/messageRouter')
+const messageRouter = require('./routes/messageRouter');
 
 //WEBPACK BUILD
 app.use("/build", express.static(path.join(__dirname, "../build")));
@@ -22,6 +22,7 @@ app.use('/user', usersRouter);
 app.use('/stocks', stocksRouter);
 app.use('/pastStock', pastStockRouter);
 app.use('/messages', messageRouter);
+
 // app.use('/api', apiRouter);
 
 //MAIN PAGE

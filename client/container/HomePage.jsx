@@ -119,7 +119,7 @@ class HomePage extends Component {
           alert("Your password does not match with our data!");
         } else {
           alert("welcome!");
-          console.log(body);
+          console.log("THIS IS THE BODY>>>>>>", body);
           this.setState({
             favorites: body.favorites,
             email: body.email_address,

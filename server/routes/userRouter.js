@@ -2,23 +2,32 @@ const express = require("express");
 const userController = require("../controllers/userController");
 const router = express.Router();
 const stocksController = require("../controllers/stocksController");
+const cookieController = require('../controllers/cookieController');
+const sessionController = require('../controllers/sessionController')
 
-router.post("/signup", userController.createUser, (req, res) =>
+router.post(
+  "/signup", 
+  userController.createUser, 
+  cookieController.setSSIDCookie,
+  sessionController.startSession,
+  (req, res) =>
   res.status(200).json(res.locals.userInfo)
 );
 
 router.post(
   "/login",
   userController.verifyUser,
+  cookieController.setSSIDCookie,
+  sessionController.startSession,
   stocksController.getBuys,
   (req, res) => res.status(200).json(res.locals.userInfo)
 );
 
-router.post("/addfav", userController.addFavs, (req, res) =>
+router.post("/addfav", sessionController.isLoggedIn, userController.addFavs, (req, res) =>
   res.status(200).json(res.locals.addedFav)
 );
 
-router.post("/removefav", userController.removeFav, (req, res) =>
+router.post("/removefav", sessionController.isLoggedIn, userController.removeFav, (req, res) =>
   res.status(200).json(res.locals.removedFav)
 );
 
