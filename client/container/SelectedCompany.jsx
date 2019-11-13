@@ -5,13 +5,13 @@ const SelectedCompany = props => {
   return (
     <div>
       {props.isPicked ? (
-          <StockPopUp
-            userName={props.email}
-            symbol={props.companySymbol}
-            companyName={props.companyName}
-            closePopup={props.togglePopup}
-          />
-        ) : null}
+        <StockPopUp
+          userName={props.userName}
+          symbol={props.companySymbol}
+          companyName={props.companyName}
+          closePopup={props.togglePopup}
+        />
+      ) : null}
       />
     </div>
   );

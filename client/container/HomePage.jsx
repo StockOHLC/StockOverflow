@@ -227,8 +227,16 @@ class HomePage extends Component {
           toggleSignupPopup = {this.toggleSignupPopup}
 
         />
-
-  {this.state.isSignupPicked? <SignupPopup  firstnameHandler = {this.firstnameHandler} lastnameHandler = {this.lastnameHandler} emailHandler = {this.emailHandler} passwordHandler = {this.passwordHandler} handleSumbit = {this.handleSumbit } toggleSignupPopup = {this.toggleSignupPopup} /> : null}
+      {this.state.isSignupPicked? 
+        <SignupPopup  
+          firstnameHandler = {this.firstnameHandler} 
+          lastnameHandler = {this.lastnameHandler} 
+          emailHandler = {this.emailHandler} 
+          passwordHandler = {this.passwordHandler} 
+          handleSumbit = {this.handleSumbit } 
+          toggleSignupPopup = {this.toggleSignupPopup} 
+        /> : null}
+        
         <section>
           {/* CompanySearch uses SearchBar.jsx and Stocklist.jsx */}
           <Switch>

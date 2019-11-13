@@ -2,6 +2,7 @@ var React = require('react');
 var CanvasJS = require('./canvasjs.min');
 CanvasJS = CanvasJS.Chart ? CanvasJS : window.CanvasJS;
 
+
 class CanvasJSChart extends React.Component {
 	static _cjsContainerId = 0
 	constructor(props) {		
@@ -15,7 +16,7 @@ class CanvasJSChart extends React.Component {
 		//Create Chart and Render		
 		this.chart = new CanvasJS.Chart(this.chartContainerId, this.options);
 		this.chart.render();
-		
+
 		if(this.props.onRef)
 			this.props.onRef(this.chart);
 	}	
