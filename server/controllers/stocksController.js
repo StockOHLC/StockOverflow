@@ -20,16 +20,17 @@ stocksController.addBuy = (req, res, next) => {
   models.Buy.create(
     {
       email_address: req.body.email_address,
-      boughtStockID: req.body.boughtStockID,
+      boughtStockId: req.body.boughtStockId,
       date: req.body.date,
       purchasedPrice: req.body.purchasedPrice,
       numberOfShares: req.body.numberOfShares
     },
     (err, buys) => {
+      console.log("in here");
       if (err)
         return next("Error in stocksController.addBuy: " + JSON.stringify(err));
       console.log(buys);
-      res.locals.userInfo.buys = buys;
+      res.locals.buys = buys;
       return next();
     }
   );
