@@ -59,6 +59,21 @@ const MessageSchema = new Schema({
 
 const Message = mongoose.model('messages', MessageSchema)
 
+//Bcrypt:
+const SALT_FACTOR = 10;
+const bcrypt = require('bcryptjs');
+
+userSchema.pre('save', (next) => {
+  bcrypt.hash(this.password, SALT_FACTOR, (err, hash) => {
+    if (err) { 
+      return next(err);
+    } else { 
+      this.password = hash;
+      return next();
+    }
+  })
+})
+
 module.exports = {
     User, 
     Buy, 
