@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = 3005;
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
@@ -13,6 +13,7 @@ app.use(express.json());
 const stocksRouter = require('./routes/stocksRouter');
 const usersRouter = require('./routes/userRouter');
 const pastStockRouter = require('./routes/pastStocksRouter');
+const messageRouter = require('./routes/messageRouter')
 
 //WEBPACK BUILD
 app.use('/build', express.static(path.join(__dirname, '../build')));
@@ -21,7 +22,8 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 // ROUTE HANDLING
 app.use('/user', usersRouter);
 app.use('/stocks', stocksRouter);
-app.use('/pastStock', pastStockRouter)
+app.use('/pastStock', pastStockRouter);
+app.use('/messages', messageRouter);
 // app.use('/api', apiRouter);
 
 //MAIN PAGE
