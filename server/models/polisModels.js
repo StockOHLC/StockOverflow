@@ -52,15 +52,16 @@ const PastStock = mongoose.model('pastStocks', pastStockSchema);
 //messages
 const MessageSchema = new Schema({
   user: String,
-  message: String,
-  // timeStamp: true
+  message: String
+}, {
+  timestamps: true
 });
 
-const Messages = mongoose.model('messages', MessageSchema)
+const Message = mongoose.model('messages', MessageSchema)
 
 module.exports = {
     User, 
     Buy, 
     PastStock,
-    Messages
+    Message
 };

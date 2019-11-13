@@ -1,26 +1,24 @@
-const express = require('express');
-const userController = require('../controllers/userController');
+const express = require("express");
+const userController = require("../controllers/userController");
 const router = express.Router();
-const stocksController = require('../controllers/stocksController');
+const stocksController = require("../controllers/stocksController");
 
-
-router.post('/signup', userController.createUser, (req, res) =>
+router.post("/signup", userController.createUser, (req, res) =>
   res.status(200).json(res.locals.userInfo)
 );
 
-
 router.post(
-  '/login',
+  "/login",
   userController.verifyUser,
   stocksController.getBuys,
   (req, res) => res.status(200).json(res.locals.userInfo)
 );
 
-router.post('/addfav', userController.addFavs, (req, res) =>
+router.post("/addfav", userController.addFavs, (req, res) =>
   res.status(200).json(res.locals.addedFav)
 );
 
-router.post('/removefav', userController.removeFav, (req, res) =>
+router.post("/removefav", userController.removeFav, (req, res) =>
   res.status(200).json(res.locals.removedFav)
 );
 
