@@ -20,13 +20,18 @@ class HomePage extends Component {
       enteredUsername: "",
       enteredPassword: "",
 
-      name: "",
-      isPicked: false,
-      companyName: "",
+      // default tab showing the stocklist component (rather than favs/buys)
       whichTab: "1",
+
+      name: "", // used for the search bar
+      
+      email: "",
       favorites: [],
       buys: [],
-      email: "",
+      
+      // information grabbed from selecting a company and used to display the selectedCompany page & rendering of popup
+      isPicked: false,
+      companyName: "",
       companySymbol: ""
     };
 
