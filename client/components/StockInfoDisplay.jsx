@@ -17,12 +17,15 @@ const StockInfoDisplay = props => {
   const saveNumberOfShares = e => {
     console.log("save number of shares");
     if (Number(e.target.value) === "NaN") alert("Please type the number!");
-    else updateShare(Number(e.target.value));
+    else {
+      updateShare(Number(e.target.value));
+      console.log(numberOfShare);
+    }
   };
 
   const saveDate = e => {
     let newDate = e.target.value;
-    console.log("save data: ".props.data);
+    console.log("save data: ", props.data);
     let newPrice;
     for (let i = 0; i < props.data.changes.length; i++) {
       if (Object.values(props.data.changes[i])[0] !== undefined) {
@@ -47,20 +50,19 @@ const StockInfoDisplay = props => {
         },
         body: JSON.stringify({
           email_address: props.userName,
-          boughtStockID: symbol,
-          date: stockPriceAndDate.date,
-          purchasedPrice: stockPriceAndDate.stockPrice,
-          numberOfShare: numberOfShare
+          boughtStockId: symbol,
+          purchasedPrice: stockPriceAndDate.price,
+          numberOfShares: numberOfShare
         })
       }).catch(err => console.log(err));
     }
   };
-  console.log(stockPriceAndDate.stockPrice);
+  console.log("stock price: ", stockPriceAndDate.price);
   return (
     <div id="stockBuyInfo">
       <p>What date do you want to buy?</p>
       <input type="date" onChange={saveDate}></input>
-      <p>Price: {stockPriceAndDate.stockPrice}</p>
+      <p>Price: {stockPriceAndDate.price}</p>
       <p>How many shares?</p>
       <input type="text" onChange={saveNumberOfShares}></input>
       <button onClick={handleBuy}>Buy</button>
