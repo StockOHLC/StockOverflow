@@ -3,49 +3,79 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import { STATES } from 'mongoose';
 
 const SignupPopup = props => {
+    
+    const handleSave = () => {
+        props.toggleSignupPopup();
+      };
+
     return (
-        <form onSumbit = {props.handleSumbit}>
+        <div className = 'popup'>
+            <div className = 'popup_inner'>
+               
+               
+                {/* {isLoading ? 
+        <div className='sweet-loading'>
+          <ClipLoader
+            css={override}
+            sizeUnit={"px"}
+            size={150}
+            color={'#123abc'}
+            loading={isLoading}
+          />
+        </div> : 
+        <div> */}
+        
+        <form onSubmit={props.handleSumbit}>
+      
+        <span className= "closeButton" onClick={handleSave}>X</span>
+            <div>
             <label>
                 First name:
                 <input
                 type = "text"
                 name = "firstname"
-                value = {props.firstname}
-                onChange = {props.handleChange}
+                onChange = {props.firstnameHandler}
             />
             </label>
+            </div>
 
+            <div>
             <label>
                 Last name:
                 <input 
                 type ="text" 
                 name = "lastname"
-                value = {props.lastname}
-                onChange = {props.handleChange}
+                onChange = {props.lastnameHandler}
             />
             </label>
-
+            </div>
+            
+            <div>
             <label>
                 Email:
                 <input 
                 type = "text"
                 name = "email"
-                value = {props.email}
-                onChange = {props.handleChange}
+                onChange = {props.emailHandler}
             />
             </label>
+            </div>
 
+            <div>
             <label>
                 Password:
                 <input 
                     type = "password"
                     name = "password"
-                    value = {props.password}
-                    onChange = {props.handleChange}
+                    onChange = {props.passwordHandler}
                 />
             </label>
-            <input type = "sumbit" value = "Sumbit" />
+            </div>
+            
+            <input type = "submit" value = "Sumbit" />
         </form>
+        </div> 
+        </div>
     )
 }
 

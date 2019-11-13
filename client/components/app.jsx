@@ -11,7 +11,7 @@ var dataPoints = [];
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state={
+    this.state= {
       enteredUsername:'',
       enteredPassword:'',
       name:'',
@@ -29,22 +29,19 @@ class App extends Component {
     this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
     this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
     this.nameChangeHandler = this.nameChangeHandler.bind(this);
-    // this.SignupClick = this.SignupClick.bind(this);
     this.LoginClick = this.LoginClick.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
+    this.toggleSignupPopup = this.toggleSignupPopup.bind(this)
     this.favsListChangeHandler = this.favsListChangeHandler.bind(this);
     this.stockListChangeHandler = this.stockListChangeHandler.bind(this);
     this.buysListChangeHandler = this.buysListChangeHandler.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.handleSumbit = this.handleSumbit.bind(this);
+    this.emailHandler = this.emailHandler.bind(this);
+    this.passwordHandler = this.passwordHandler.bind(this);
+    this.firstnameHandler = this.firstnameHandler.bind(this);
+    this.lastnameHandler = this.lastnameHandler.bind(this);
   }
-  // SignupClick(){
-  //   axios.post('/user/signup',{
-  //     'username':this.state.enteredUsername,
-  //     'password': this.state.enteredPassword
-  //   })
-  // }
-
+ 
   LoginClick(){
     console.log("inside login click")
     fetch('/user/login',{
@@ -108,28 +105,42 @@ class App extends Component {
       this.setState({'isSignupPicked': false});
     }
   }
+  handleSumbit(e) { 
+    e.preventDefault();
+    alert('Your account has been created');
 
-  handleChange(e) { 
-    const value = e.target.value;
-    setState({
-      ...state,
-      [e.target.name] : value
+    axios.post('/user/signup', {
+      first_name: this.state.firstname,
+      last_name:  this.state.lastname,
+      email_address: this.state.email,
+      password:  this.state.password
+    })
+     }
+
+
+  passwordHandler(e) { 
+
+    this.setState({
+      password: e.target.value
     })
   }
 
-  handleSumbit(e) { 
-    alert('Your account has been created');
-    e.preventDefault();
-
-    axios.post('/user/signup',{
-      'firstname':this.state.firstname,
-      'lastname': this.state.lastname,
-      'email': this.state.email,
-      'password': this.state.password
-      
-
+  firstnameHandler(e) { 
+    this.setState({
+      firstname: e.target.value
     })
+  }
 
+  lastnameHandler(e) { 
+    this.setState({
+      lastname: e.target.value
+    })
+  }
+
+  emailHandler(e) { 
+    this.setState({
+      email: e.target.value
+    })
   }
   
   render(){
@@ -155,11 +166,11 @@ class App extends Component {
 
     return(
       <div>
-        {/* <Header SignupClick = {this.SignupClick} */}
+        {console.log(this.state.enteredUsername)}
         <Header toggleSignupPopup = {this.toggleSignupPopup} LoginClick ={this.LoginClick} passwordChangeHandler ={this.passwordChangeHandler} usernameChangeHandler ={this.usernameChangeHandler} enteredUsername = {this.state.enteredUsername} enteredPassword={this.state.enteredPassword}/>
         <SearchBar whichTab ={this.state.whichTab} buysListChangeHandler={this.buysListChangeHandler} stockListChangeHandler ={this.stockListChangeHandler} favsListChangeHandler={this.favsListChangeHandler} name={this.state.name} nameChangeHandler={this.nameChangeHandler}/>
         {this.state.isPicked ? <StockPopUp userName= {this.state.email} symbol ={this.state.companySymbol} companyName={this.state.companyName} closePopup ={this.togglePopup}/> : null}
-        {this.state.isSignupPicked? <SignupPopup firstname = {this.state.firstname} lastname = {this.state.lastname} email = {this.state.email} password = {this.state.password} handleChange = {this.handleChange} handleSumbit = {this.handleSumbit } closePopup = {this.toggleSignupPopup} /> : null}
+        {this.state.isSignupPicked? <SignupPopup  firstnameHandler = {this.firstnameHandler} lastnameHandler = {this.lastnameHandler} emailHandler = {this.emailHandler} passwordHandler = {this.passwordHandler} handleSumbit = {this.handleSumbit } toggleSignupPopup = {this.toggleSignupPopup} /> : null}
         {content}
       </div>
     );

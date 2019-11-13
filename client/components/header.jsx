@@ -9,8 +9,6 @@ return (
     <SignupLogButton enteredUsername = {props.enteredUsername} enteredPassword = {props.enteredPassword} 
       passwordChangeHandler ={props.passwordChangeHandler} usernameChangeHandler ={props.usernameChangeHandler}
       LoginClick = {props.LoginClick} toggleSignupPopup = {props.toggleSignupPopup} />
-      {/* <SignupLogButton SignupClick = {props.SignupClick} */}
-  
   </div>
 );
 }
