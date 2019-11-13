@@ -12,7 +12,6 @@ const SelectedCompany = props => {
             closePopup={props.togglePopup}
           />
         ) : null}
-      />
     </div>
   );
 };

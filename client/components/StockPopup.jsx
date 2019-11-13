@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import StockInfoDisplay from "./StockInfoDisplay.jsx";
-import ClipLoader from "react-spinners/ClipLoader";
+// import ClipLoader from "react-spinners/ClipLoader";
 import StockGraphDisplay from "./StockGraphDisplay.jsx";
 
 const StockPopup = props => {
@@ -47,20 +47,20 @@ const StockPopup = props => {
       }).catch(err => console.log(err));
     }
   };
-  console.log("this is graph Info", graphInfo);
+  // console.log("this is graph Info", graphInfo);
   return (
-    <div className="popup">
-      <div className="popup_inner">
+      <div>
         {graphInfo.isLoading ? (
-          <div className="sweet-loading">
-            <ClipLoader
-            css={override}
-            sizeUnit={"px"}
-            size={150}
-            color={'#123abc'}
-            loading={graphInfo.isLoading}
-          />
-          </div>
+          // <div className="sweet-loading">
+          //   <ClipLoader
+          //   css={override}
+          //   sizeUnit={"px"}
+          //   size={150}
+          //   color={'#123abc'}
+          //   loading={graphInfo.isLoading}
+          // />
+          // </div>
+          <div></div>
         ) : (
           <div>
             <p>
@@ -74,13 +74,13 @@ const StockPopup = props => {
               stockName={props.companyName}
               stockSymbol={props.symbol}
             />
+            {/* back button instead of close button? */}
             <span className="closeButton" onClick={handleSave}>
               X
             </span>
           </div>
         )}
       </div>
-    </div>
   );
 };
 

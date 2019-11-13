@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { STATES } from 'mongoose';
 
 const SignupPopup = props => {
     
@@ -11,19 +9,6 @@ const SignupPopup = props => {
     return (
         <div className = 'popup'>
             <div className = 'popup_inner'>
-               
-               
-                {/* {isLoading ? 
-        <div className='sweet-loading'>
-          <ClipLoader
-            css={override}
-            sizeUnit={"px"}
-            size={150}
-            color={'#123abc'}
-            loading={isLoading}
-          />
-        </div> : 
-        <div> */}
         
         <form onSubmit={props.handleSumbit}>
       
