@@ -20,7 +20,7 @@ router.get(
 
 router.post(
   "/buys",
-  stocksController.getBuys,
+  // stocksController.getBuys,
   stocksController.addBuy,
   (req, res) => {
     console.log("inside buys post router");
