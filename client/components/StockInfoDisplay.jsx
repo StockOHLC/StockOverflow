@@ -50,8 +50,7 @@ const StockInfoDisplay = props => {
         },
         body: JSON.stringify({
           email_address: props.userName,
-          boughtStockID: symbol,
-          date: stockPriceAndDate.date,
+          boughtStockId: symbol,
           purchasedPrice: stockPriceAndDate.stockPrice,
           numberOfShare: numberOfShare
         })
