@@ -6,7 +6,16 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
 const http = require('http').createServer(app);
-const io = require('socket.io')(http); //http is the server
+const io = require('socket.io')(http); //http is the server- do we do .createServer(http)?
+
+//SOCKETS
+io.on('connection', (socket) => {
+  console.log('made some connections')
+  socket.emit('message', 'fuck');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+})
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -32,6 +41,9 @@ app.use("/", (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, "../index.html"));
 });
 
+//sockets listen on port -- do i put this in io.on('connection)?
+// io.listen(PORT)
+
 //CATCH-ALL HANDLER
 app.use("*", (req, res, err) => {
   res.sendStatus(404);
@@ -39,14 +51,11 @@ app.use("*", (req, res, err) => {
 
 //GLOBAL ERROR HANDLING
 app.use((err, req, res, next) => {
-  console.log(`req: ${req}`);
-  console.log(`res: ${res}`);
-  console.log(`err: ${err}`)
   return res.status(400).json("Global Error");
 });
 
 //SERVER
-app.listen(PORT, () => {
+http.listen(PORT, () => { //dont want to use http on the client side
   console.log(`Server listening on port: ${PORT}`);
 });
 
