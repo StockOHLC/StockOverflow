@@ -9,15 +9,20 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const stocksRouter = require("./routes/stocksRouter");
-const usersRouter = require("./routes/userRouter");
+const stocksRouter = require('./routes/stocksRouter');
+const usersRouter = require('./routes/userRouter');
+const pastStockRouter = require('./routes/pastStocksRouter');
+const messageRouter = require('./routes/messageRouter')
 
 //WEBPACK BUILD
 app.use("/build", express.static(path.join(__dirname, "../build")));
 
 // ROUTE HANDLING
-app.use("/user", usersRouter);
-app.use("/stocks", stocksRouter);
+app.use('/user', usersRouter);
+app.use('/stocks', stocksRouter);
+app.use('/pastStock', pastStockRouter);
+app.use('/messages', messageRouter);
+// app.use('/api', apiRouter);
 
 //MAIN PAGE
 app.use("/", (req, res) => {
@@ -31,6 +36,9 @@ app.use("*", (req, res, err) => {
 
 //GLOBAL ERROR HANDLING
 app.use((err, req, res, next) => {
+  console.log(`req: ${req}`);
+  console.log(`res: ${res}`);
+  console.log(`err: ${err}`)
   return res.status(400).json("Global Error");
 });
 

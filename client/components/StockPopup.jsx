@@ -53,13 +53,13 @@ const StockPopup = props => {
       <div className="popup_inner">
         {graphInfo.isLoading ? (
           <div className="sweet-loading">
-            {/* <ClipLoader
+            <ClipLoader
             css={override}
             sizeUnit={"px"}
             size={150}
             color={'#123abc'}
             loading={graphInfo.isLoading}
-          /> */}
+          />
           </div>
         ) : (
           <div>

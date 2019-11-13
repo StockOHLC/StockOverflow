@@ -9,6 +9,7 @@ const GraphDisplay = props => {
   useEffect(()=>{
 		let dataSets = [];
 		if(props.data.changes){
+			console.log(props.data.changes)
 			for(let i = props.data.changes.length - 1, j = 0; i >= 0; i-=100, j++){
 				dataSets.push({x : j , y: Number(Object.values(props.data.changes[i])[0])});
 			}

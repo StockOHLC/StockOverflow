@@ -11,11 +11,12 @@ mongoose
     // sets the name of the DB that our collections are part of
     dbName: "stock"
   })
-  .then(() => console.log(`Connected to Sung's Mongo DB`))
+  .then(() => console.log(`Connected to Mongo DB`))
   .catch(err => console.log(err));
 
 const Schema = mongoose.Schema;
 
+//userSchema
 const userSchema = new Schema({
   email_address: { type: String, required: true },
   password: { type: String, required: true },
@@ -41,14 +42,29 @@ const buySchema = new Schema(
 
 const Buy = mongoose.model("buy", buySchema);
 
+//pastStockSchema
 const pastStockSchema = new Schema({
   stockSymbol: String,
   changes: [Object]
 });
 const PastStock = mongoose.model("pastStocks", pastStockSchema);
 
+//messages
+const MessageSchema = new Schema(
+  {
+    user: String,
+    message: String
+  },
+  {
+    timestamps: true
+  }
+);
+
+const Message = mongoose.model("messages", MessageSchema);
+
 module.exports = {
   User,
   Buy,
-  PastStock
+  PastStock,
+  Message
 };
