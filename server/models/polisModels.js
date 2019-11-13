@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
 
 const MONGO_URI =
-  'mongodb+srv://sungdo1004:codesmith1004@cluster0-2sjwa.mongodb.net/test?retryWrites=true&w=majority';
+  'mongodb+srv://bradleyDB:kiroismypartner@cluster0-klwdv.mongodb.net/test?retryWrites=true&w=majority';
 
-mongoose
-  .connect(MONGO_URI, {
+mongoose.connect(MONGO_URI, {
     // options for the connect method to parse the URI
     useNewUrlParser: true,
     useUnifiedTopology: true,
     // sets the name of the DB that our collections are part of
     dbName: 'stock'
   })
-  .then(() => console.log(`Connected to Sung's Mongo DB`))
+  .then(() => console.log(`Connected to Bradley's Mongo DB`))
   .catch(err => console.log(err));
 
 const Schema = mongoose.Schema;
@@ -36,12 +35,6 @@ const buySchema = new Schema({
 });
 
 const Buy = mongoose.model('buy', buySchema);
-
-const pastStockSchema = new Schema({
-  stockSymbol: String,
-  changes: [Object]
-});
-const PastStock = mongoose.model('pastStocks', pastStockSchema);
 
 const pastStockSchema = new Schema({
     stockSymbol : String,

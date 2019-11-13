@@ -3,6 +3,7 @@ const models = require('../models/polisModels');
 const userController = {};
 
 userController.createUser = (req, res, next) => {
+  console.log("i am in create user");
   const {email_address, password, first_name, last_name} = req.body
   console.log(req.body)
   console.log(typeof email_address)
@@ -20,34 +21,34 @@ userController.createUser = (req, res, next) => {
     });
 };
 
-// userController.getFavs = (req, res, next) => {
-//   console.log('??????????????????????')
-//   console.log('req.body is', req.body);
-//   const {email_address, stockName} = req.body
-//   // models.Fav.findOne({userId})
-//   // .then(result => {
-//   //   console.log('result in getFav is', result);
-//   //   res.locals.favList = result
-//   //   next();
-//   // })
-//   // .catch(err => {
-//   //   next({
-//   //     log: `userController.getFav: ERROR: ${err}`,
-//   //     message: { err: 'Error occurred in userController.getFav Check server logs for more details.' }
-//   //   });
-//   // });
-//   models.Fav.findOne({email_address}, (err, result) => {
-//     if (result === null) {
-//       console.log('nothing bro in getFavs')
-//       next();
-//     }
-//     if (err) return next('Error in userController.getAllUsers: ' + JSON.stringify(err));
-//     res.locals.favList = result;
-//     next();
-//   })
+userController.getFavs = (req, res, next) => {
+  console.log('??????????????????????')
+  console.log('req.body is', req.body);
+  const {email_address, stockName} = req.body
+  models.Fav.findOne({userId})
+  .then(result => {
+    console.log('result in getFav is', result);
+    res.locals.favList = result
+    next();
+  })
+  .catch(err => {
+    next({
+      log: `userController.getFav: ERROR: ${err}`,
+      message: { err: 'Error occurred in userController.getFav Check server logs for more details.' }
+    });
+  });
+  models.Fav.findOne({email_address}, (err, result) => {
+    if (result === null) {
+      console.log('nothing bro in getFavs')
+      next();
+    }
+    if (err) return next('Error in userController.getAllUsers: ' + JSON.stringify(err));
+    res.locals.favList = result;
+    next();
+  })
 
 
-// }
+}
 
 userController.addFavs = (req, res, next) => {
   console.log('req.body that was passed from getFavs now in addFav is', req.body);

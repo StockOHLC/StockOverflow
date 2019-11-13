@@ -4,6 +4,7 @@ import axios from 'axios';
 import SearchBar from './searchcomp'
 import StockList from '../container/StockList.jsx'
 import StockPopUp from './StockPopup'
+import SignupPopup from './SignupPopup'
 import RenderList from './renderList.jsx'
 
 var dataPoints = [];
@@ -15,11 +16,15 @@ class App extends Component {
       enteredPassword:'',
       name:'',
       isPicked: false,
+      isSignupPicked: false,
       companyName:'',
       whichTab: '1',
       favorites:[],
       buys:[],
-      email:''
+      email:'',
+      firstname:'',
+      lastname: '',
+      password: '',
     }
     this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
     this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
@@ -30,6 +35,8 @@ class App extends Component {
     this.favsListChangeHandler = this.favsListChangeHandler.bind(this);
     this.stockListChangeHandler = this.stockListChangeHandler.bind(this);
     this.buysListChangeHandler = this.buysListChangeHandler.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSumbit = this.handleSumbit.bind(this);
   }
   SignupClick(){
     axios.post('/user/signup',{
@@ -37,6 +44,7 @@ class App extends Component {
       'password': this.state.enteredPassword
     })
   }
+
   LoginClick(){
     console.log("inside login click")
     fetch('/user/login',{
@@ -91,6 +99,30 @@ class App extends Component {
       this.setState({'isPicked':false});
     }
   }
+
+  handleChange(e) { 
+    const value = e.target.value;
+    setState({
+      ...state,
+      [e.target.name] : value
+    })
+  }
+
+  handleSumbit(e) { 
+    alert('Your account has been created');
+    e.preventDefault();
+
+    axios.post('/user/signup',{
+      'firstname':this.state.firstname,
+      'lastname': this.state.lastname,
+      'email': this.state.email,
+      'password': this.state.password
+      
+
+    })
+
+  }
+  
   render(){
     let content;
     if(this.state.whichTab == '1'){
@@ -117,6 +149,7 @@ class App extends Component {
         <Header SignupClick = {this.SignupClick} LoginClick ={this.LoginClick} passwordChangeHandler ={this.passwordChangeHandler} usernameChangeHandler ={this.usernameChangeHandler} enteredUsername = {this.state.enteredUsername} enteredPassword={this.state.enteredPassword}/>
         <SearchBar whichTab ={this.state.whichTab} buysListChangeHandler={this.buysListChangeHandler} stockListChangeHandler ={this.stockListChangeHandler} favsListChangeHandler={this.favsListChangeHandler} name={this.state.name} nameChangeHandler={this.nameChangeHandler}/>
         {this.state.isPicked ? <StockPopUp userName= {this.state.email} symbol ={this.state.companySymbol} companyName={this.state.companyName} closePopup ={this.togglePopup}/> : null}
+        {this.state.isSignupPicked? <SignupPopup firstname = {this.state.firstname} lastname = {this.state.lastname} email = {this.state.email} password = {this.state.password} handleChange = {this.handleChange} handleSumbit = {this.handleSumbit }/> : null}
         {content}
       </div>
     );
