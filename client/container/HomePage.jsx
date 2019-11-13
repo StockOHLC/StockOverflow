@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios'
 import {
   Switch,
   Route,
@@ -10,6 +11,7 @@ import Header from "../components/header";
 import CompanySearch from './CompanySearch.jsx';
 import SelectedCompany from './SelectedCompany.jsx';
 import NewsChat from "./NewsChat.jsx";
+import SignupPopup from '../components/SignupPopup'
 
 
 class HomePage extends Component {
@@ -31,6 +33,7 @@ class HomePage extends Component {
       
       // information grabbed from selecting a company and used to display the selectedCompany page & rendering of popup
       isPicked: false,
+      isSignupPicked: false,
       companyName: "",
       companySymbol: ""
     };
@@ -41,9 +44,15 @@ class HomePage extends Component {
     this.nameChangeHandler = this.nameChangeHandler.bind(this);
     this.SignupClick = this.SignupClick.bind(this);
     this.LoginClick = this.LoginClick.bind(this);
+    this.handleSumbit = this.handleSumbit.bind(this);
+    this.emailHandler = this.emailHandler.bind(this);
+    this.passwordHandler = this.passwordHandler.bind(this);
+    this.firstnameHandler = this.firstnameHandler.bind(this);
+    this.lastnameHandler = this.lastnameHandler.bind(this);
 
     // function 
     this.togglePopup = this.togglePopup.bind(this);
+    this.toggleSignupPopup = this.toggleSignupPopup.bind(this);
 
     // functions related to directing user to different pages
     // stocklist uses the stocklist.jsx file
@@ -51,6 +60,7 @@ class HomePage extends Component {
     // favs and buys list use the renderList.jsx file
     this.favsListChangeHandler = this.favsListChangeHandler.bind(this);
     this.buysListChangeHandler = this.buysListChangeHandler.bind(this);
+
   }
 
   // functions controlling login and sign up
@@ -142,6 +152,51 @@ class HomePage extends Component {
     this.setState({ name: event.target.value });
   }
 
+  toggleSignupPopup() { 
+    if (this.state.isSignupPicked == false) { 
+      this.setState({'isSignupPicked': true});
+    }
+    else { 
+      this.setState({'isSignupPicked': false});
+    }
+  }
+
+  handleSumbit(e) { 
+    e.preventDefault();
+    alert('Your account has been created');
+    axios.post('/user/signup', {
+      first_name: this.state.firstname,
+      last_name:  this.state.lastname,
+      email_address: this.state.email,
+      password:  this.state.password
+    })
+     }
+
+
+  passwordHandler(e) { 
+    this.setState({
+      password: e.target.value
+    })
+  }
+
+  firstnameHandler(e) { 
+    this.setState({
+      firstname: e.target.value
+    })
+  }
+
+  lastnameHandler(e) { 
+    this.setState({
+      lastname: e.target.value
+    })
+  }
+
+  emailHandler(e) { 
+    this.setState({
+      email: e.target.value
+    })
+  }
+
   // function controlling togglepopup of simulator
   togglePopup(newname, newSymbol) {
     // state default is false, else statement is a functionality to close the popup
@@ -169,8 +224,11 @@ class HomePage extends Component {
           usernameChangeHandler={this.usernameChangeHandler}
           enteredUsername={this.state.enteredUsername}
           enteredPassword={this.state.enteredPassword}
+          toggleSignupPopup = {this.toggleSignupPopup}
+
         />
 
+  {this.state.isSignupPicked? <SignupPopup  firstnameHandler = {this.firstnameHandler} lastnameHandler = {this.lastnameHandler} emailHandler = {this.emailHandler} passwordHandler = {this.passwordHandler} handleSumbit = {this.handleSumbit } toggleSignupPopup = {this.toggleSignupPopup} /> : null}
         <section>
           {/* CompanySearch uses SearchBar.jsx and Stocklist.jsx */}
           <Switch>
