@@ -10,11 +10,13 @@ mongoose.connect(MONGO_URI, {
     // sets the name of the DB that our collections are part of
     dbName: 'stock'
   })
-  .then(() => console.log(`Connected to Bradley's Mongo DB`))
+  .then(() => console.log(`Connected to Mongo DB`))
   .catch(err => console.log(err));
 
 const Schema = mongoose.Schema;
 
+
+//userSchema
 const userSchema = new Schema({
   email_address: { type: String, required: true },
   password: { type: String, required: true },
@@ -25,6 +27,8 @@ const userSchema = new Schema({
 
 const User = mongoose.model('user', userSchema);
 
+
+//buySchema
 const buySchema = new Schema({
   email_address: String,
   boughtStockId: String,
@@ -36,21 +40,28 @@ const buySchema = new Schema({
 
 const Buy = mongoose.model('buy', buySchema);
 
-const pastStockSchema = new Schema({
-<<<<<<< HEAD
-    stockSymbol : String,
-    changes: [Object]
-})
 
-=======
+//pastStockSchema
+const pastStockSchema = new Schema({
   stockSymbol: String,
   changes: [Object]
 });
->>>>>>> master
 const PastStock = mongoose.model('pastStocks', pastStockSchema);
+
+
+//messages
+const MessageSchema = new Schema({
+  user: String,
+  message: String
+}, {
+  timestamps: true
+});
+
+const Message = mongoose.model('messages', MessageSchema)
 
 module.exports = {
     User, 
     Buy, 
-    PastStock
+    PastStock,
+    Message
 };
