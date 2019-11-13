@@ -5,6 +5,9 @@ const PORT = 3000;
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
+const http = require('http').createServer(app);
+const io = require('socket.io')(http); //http is the server
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,5 +49,6 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
+
 
 module.exports = app;
