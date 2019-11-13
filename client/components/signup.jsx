@@ -1,36 +1,20 @@
 import React from 'react'
 
-const SignupLogButton =(props) =>{
+const SignupLogButton =(props) => {
+ 
+  const override = `
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+  `;
+
 return (
   <div>
-   <form >
-
-<label>Email</label>
-
-    <input
-
-        type="text"
-
-        value={props.enteredUsername}
-        onChange= {props.usernameChangeHandler}
-        required
-    ></input>
-
-    <label>Password</label>
-
-<input
-
-  type="password"
-
-  value={props.enteredPassword}
-
-  onChange={props.passwordChangeHandler}
-  required  
-></input>
-
-<input type="button" value="Sign Up" onClick={()=>props.SignupClick()}></input>
-<input type="button" value="Log In" onClick={()=>props.LoginClick()}></input>
-</form>
+    <input type = "text" placeholder = "username" onChange = {props.usernameChangeHandler} />
+    <input type = "password" placeholder = "password" onChange = {props.passwordChangeHandler} />
+    <input type = "button" value = "Log in" onClick = {props.LoginClick} />
+    <input type="button" value="Sign Up" onClick={()=> props.toggleSignupPopup() }></input>
+    
   </div>
 )
 }
