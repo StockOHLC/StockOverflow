@@ -1,9 +1,13 @@
 import React from 'react'
 
-const SignupLogButton =(props) =>{
+// const SignupLogButton =(props) => {
+//   const handleSave = () => {
+//     props.toggleSignupPopup();
+//   }
+
 return (
   <div>
-   <form >
+    {/* <form >
 
 <label>Email</label>
 
@@ -26,12 +30,13 @@ return (
 
   onChange={props.passwordChangeHandler}
   required  
-></input>
+></input> */}
 
-<input type="button" value="Sign Up" onClick={()=>props.SignupClick()}></input>
-<input type="button" value="Log In" onClick={()=>props.LoginClick()}></input>
-</form>
+<input type="button" value="Sign Up" onClick={()=> props.toggleSignupPopup() }></input>
+{/* <input type="button" value="Log In" onClick={()=>props.LoginClick()}></input>
+</form>  */}
+
   </div>
 )
-}
+// }
 export default SignupLogButton

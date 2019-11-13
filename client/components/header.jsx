@@ -8,7 +8,8 @@ return (
     <div>Stock-Up</div>
     <SignupLogButton enteredUsername = {props.enteredUsername} enteredPassword = {props.enteredPassword} 
       passwordChangeHandler ={props.passwordChangeHandler} usernameChangeHandler ={props.usernameChangeHandler}
-      LoginClick = {props.LoginClick} SignupClick= {props.SignupClick}/>
+      LoginClick = {props.LoginClick} toggleSignupPopup = {props.toggleSignupPopup} />
+      {/* <SignupLogButton SignupClick = {props.SignupClick} */}
   
   </div>
 );
