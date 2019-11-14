@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import axios from 'axios'
-import {
-  Switch,
-  Route,
-  Link,
-  withRouter
-} from 'react-router-dom';
+import axios from "axios";
+import { Switch, Route, Link, withRouter } from "react-router-dom";
 
 import Header from "../components/header";
-import CompanySearch from './CompanySearch.jsx';
-import SelectedCompany from './SelectedCompany.jsx';
+import CompanySearch from "./CompanySearch.jsx";
+import SelectedCompany from "./SelectedCompany.jsx";
 import NewsChat from "./NewsChat.jsx";
-import SignupPopup from '../components/SignupPopup'
+import SignupPopup from "../components/SignupPopup";
 
+import Chat from "./../components/Chat";
+
+import io from "socket.io-client";
+
+let socket;
 
 class HomePage extends Component {
   constructor(props) {
@@ -26,16 +26,18 @@ class HomePage extends Component {
       whichTab: "1",
 
       name: "", // used for the search bar
-      
+
       email: "",
+      username: "",
       favorites: [],
       buys: [],
-      
+
       // information grabbed from selecting a company and used to display the selectedCompany page & rendering of popup
       isPicked: false,
       isSignupPicked: false,
       companyName: "",
-      companySymbol: ""
+      companySymbol: "",
+      messages: []
     };
 
     // bind functions related to logging in and signing up
@@ -50,7 +52,7 @@ class HomePage extends Component {
     this.firstnameHandler = this.firstnameHandler.bind(this);
     this.lastnameHandler = this.lastnameHandler.bind(this);
 
-    // function 
+    // function
     this.togglePopup = this.togglePopup.bind(this);
     this.toggleSignupPopup = this.toggleSignupPopup.bind(this);
 
@@ -60,7 +62,7 @@ class HomePage extends Component {
     // favs and buys list use the renderList.jsx file
     this.favsListChangeHandler = this.favsListChangeHandler.bind(this);
     this.buysListChangeHandler = this.buysListChangeHandler.bind(this);
-
+    this.sendChatAction = this.sendChatAction.bind(this);
   }
 
   // functions controlling login and sign up
@@ -123,9 +125,16 @@ class HomePage extends Component {
           this.setState({
             favorites: body.favorites,
             email: body.email_address,
-            buys: body.buys
+            buys: body.buys,
+            username: body.user_name
           });
         }
+      })
+      .finally(() => {
+        this.setState({
+          enteredUsername: "",
+          enteredPassword: ""
+        });
       });
   }
 
@@ -152,49 +161,47 @@ class HomePage extends Component {
     this.setState({ name: event.target.value });
   }
 
-  toggleSignupPopup() { 
-    if (this.state.isSignupPicked == false) { 
-      this.setState({'isSignupPicked': true});
-    }
-    else { 
-      this.setState({'isSignupPicked': false});
+  toggleSignupPopup() {
+    if (this.state.isSignupPicked == false) {
+      this.setState({ isSignupPicked: true });
+    } else {
+      this.setState({ isSignupPicked: false });
     }
   }
 
-  handleSumbit(e) { 
+  handleSumbit(e) {
     e.preventDefault();
-    alert('Your account has been created');
-    axios.post('/user/signup', {
+    alert("Your account has been created");
+    axios.post("/user/signup", {
       first_name: this.state.firstname,
-      last_name:  this.state.lastname,
+      last_name: this.state.lastname,
       email_address: this.state.email,
-      password:  this.state.password
-    })
-     }
+      password: this.state.password
+    });
+  }
 
-
-  passwordHandler(e) { 
+  passwordHandler(e) {
     this.setState({
       password: e.target.value
-    })
+    });
   }
 
-  firstnameHandler(e) { 
+  firstnameHandler(e) {
     this.setState({
       firstname: e.target.value
-    })
+    });
   }
 
-  lastnameHandler(e) { 
+  lastnameHandler(e) {
     this.setState({
       lastname: e.target.value
-    })
+    });
   }
 
-  emailHandler(e) { 
+  emailHandler(e) {
     this.setState({
       email: e.target.value
-    })
+    });
   }
 
   // function controlling togglepopup of simulator
@@ -206,75 +213,92 @@ class HomePage extends Component {
         companyName: newname,
         companySymbol: newSymbol
       });
-      this.props.history.push('/selectedCompany')
+      this.props.history.push("/selectedCompany");
     } else {
       this.setState({ isPicked: false });
-      this.props.history.push('/')
+      this.props.history.push("/");
     }
   }
 
+  sendChatAction(value) {
+    socket.emit("chat message", value);
+  }
+
   render() {
+    if (!socket) {
+      socket = io(this.state.endpoint);
+      socket.on("chat message", message => {
+        console.log("message from server: ", message);
+        this.setState(prevState => ({
+          messages: [...prevState.messages, message]
+        }));
+      });
+    }
 
     return (
       <div>
-        <Header 
+        <Header
           SignupClick={this.SignupClick}
           LoginClick={this.LoginClick}
           passwordChangeHandler={this.passwordChangeHandler}
           usernameChangeHandler={this.usernameChangeHandler}
           enteredUsername={this.state.enteredUsername}
           enteredPassword={this.state.enteredPassword}
-          toggleSignupPopup = {this.toggleSignupPopup}
-
+          toggleSignupPopup={this.toggleSignupPopup}
         />
-      {this.state.isSignupPicked? 
-        <SignupPopup  
-          firstnameHandler = {this.firstnameHandler} 
-          lastnameHandler = {this.lastnameHandler} 
-          emailHandler = {this.emailHandler} 
-          passwordHandler = {this.passwordHandler} 
-          handleSumbit = {this.handleSumbit } 
-          toggleSignupPopup = {this.toggleSignupPopup} 
-        /> : null}
-        
+        {this.state.isSignupPicked ? (
+          <SignupPopup
+            firstnameHandler={this.firstnameHandler}
+            lastnameHandler={this.lastnameHandler}
+            emailHandler={this.emailHandler}
+            passwordHandler={this.passwordHandler}
+            handleSumbit={this.handleSumbit}
+            toggleSignupPopup={this.toggleSignupPopup}
+          />
+        ) : null}
+
         <section>
           {/* CompanySearch uses SearchBar.jsx and Stocklist.jsx */}
           <Switch>
-            <Route 
-            exact path='/'
-            render={props => (
-              <CompanySearch 
-                whichTab={this.state.whichTab}
-                buysListChangeHandler={this.buysListChangeHandler}
-                stockListChangeHandler={this.stockListChangeHandler}
-                favsListChangeHandler={this.favsListChangeHandler}
-                name={this.state.name}
-                nameChangeHandler={this.nameChangeHandler}
-                togglePopup={this.togglePopup}
-              />
-            )}
-            >
-            </Route>
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <CompanySearch
+                  whichTab={this.state.whichTab}
+                  buysListChangeHandler={this.buysListChangeHandler}
+                  stockListChangeHandler={this.stockListChangeHandler}
+                  favsListChangeHandler={this.favsListChangeHandler}
+                  name={this.state.name}
+                  nameChangeHandler={this.nameChangeHandler}
+                  togglePopup={this.togglePopup}
+                />
+              )}
+            ></Route>
 
             {/* SelectedCompany holds the stockpopup.jsx */}
             <Route
-            exact path='/selectedCompany'
-            render={props => (
-              <SelectedCompany 
-              isPicked={this.state.isPicked}
-              userName={this.state.email}
-              companySymbol={this.state.companySymbol}
-              companyName={this.state.companyName}
-              togglePopup={this.togglePopup}
-              />
-            )}
-            >
-            </Route>
+              exact
+              path="/selectedCompany"
+              render={props => (
+                <SelectedCompany
+                  isPicked={this.state.isPicked}
+                  userName={this.state.email}
+                  companySymbol={this.state.companySymbol}
+                  companyName={this.state.companyName}
+                  togglePopup={this.togglePopup}
+                />
+              )}
+            ></Route>
           </Switch>
         </section>
 
         <section>
-          <NewsChat></NewsChat>
+          <NewsChat
+            messages={this.state.messages}
+            sendChatAction={this.sendChatAction}
+            username={this.state.email}
+          ></NewsChat>
         </section>
       </div>
     );
