@@ -48,7 +48,7 @@ class HomePage extends Component {
     this.nameChangeHandler = this.nameChangeHandler.bind(this);
     this.SignupClick = this.SignupClick.bind(this);
     this.LoginClick = this.LoginClick.bind(this);
-    this.handleSumbit = this.handleSumbit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.emailHandler = this.emailHandler.bind(this);
     this.passwordHandler = this.passwordHandler.bind(this);
     this.firstnameHandler = this.firstnameHandler.bind(this);
@@ -131,7 +131,6 @@ class HomePage extends Component {
           alert("Your password does not match with our data!");
         } else {
           alert("welcome!");
-          console.log(body);
           this.setState({
             favorites: body.favorites,
             email: body.email_address,
@@ -139,6 +138,10 @@ class HomePage extends Component {
             username: body.user_name
           });
         }
+<<<<<<< HEAD
+      })}
+
+=======
       })
       .finally(() => {
         this.setState({
@@ -147,6 +150,7 @@ class HomePage extends Component {
         });
       });
   }
+>>>>>>> master
 
   stockListChangeHandler() {
     this.setState({ whichTab: "1" });
@@ -179,7 +183,11 @@ class HomePage extends Component {
     }
   }
 
+<<<<<<< HEAD
+  handleSubmit(e) { 
+=======
   handleSumbit(e) {
+>>>>>>> master
     e.preventDefault();
     alert("Your account has been created");
     axios.post("/user/signup", {
@@ -247,7 +255,12 @@ class HomePage extends Component {
 
     return (
       <div>
+<<<<<<< HEAD
+        {console.log("this.state.whichTab", this.state.whichTab)}
+        <Header 
+=======
         <Header
+>>>>>>> master
           SignupClick={this.SignupClick}
           LoginClick={this.LoginClick}
           passwordChangeHandler={this.passwordChangeHandler}
@@ -256,6 +269,18 @@ class HomePage extends Component {
           enteredPassword={this.state.enteredPassword}
           toggleSignupPopup={this.toggleSignupPopup}
         />
+<<<<<<< HEAD
+      {this.state.isSignupPicked? 
+        <SignupPopup  
+          firstnameHandler = {this.firstnameHandler} 
+          lastnameHandler = {this.lastnameHandler} 
+          emailHandler = {this.emailHandler} 
+          passwordHandler = {this.passwordHandler} 
+          handleSubmit = {this.handleSubmit } 
+          toggleSignupPopup = {this.toggleSignupPopup} 
+        /> : null}
+        
+=======
         {this.state.isSignupPicked ? (
           <SignupPopup
             firstnameHandler={this.firstnameHandler}
@@ -267,6 +292,7 @@ class HomePage extends Component {
           />
         ) : null}
 
+>>>>>>> master
         <section>
           {/* CompanySearch uses SearchBar.jsx and Stocklist.jsx */}
           <Switch>
