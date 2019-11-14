@@ -30,6 +30,7 @@ const stocksRouter = require("./routes/stocksRouter");
 const usersRouter = require("./routes/userRouter");
 const pastStockRouter = require("./routes/pastStocksRouter");
 const messageRouter = require("./routes/messageRouter");
+const newsRouter = require("./routes/newsRouter");
 
 //WEBPACK BUILD
 app.use("/build", express.static(path.join(__dirname, "../build")));
@@ -39,6 +40,7 @@ app.use("/user", usersRouter);
 app.use("/stocks", stocksRouter);
 app.use("/pastStock", pastStockRouter);
 app.use("/messages", messageRouter);
+app.use("/news", newsRouter);
 // app.use('/api', apiRouter);
 
 //MAIN PAGE
