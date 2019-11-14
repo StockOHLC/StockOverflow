@@ -75,12 +75,12 @@
 //   background-color: yellow;
 // }
 
-.account {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  display: block;
-}
+// .account {
+//   position: fixed;
+//   top: 15px;
+//   right: 15px;
+//   display: block;
+// }
 
 // .stock-div{
 //   display: flex;
@@ -167,9 +167,104 @@
 
 // new formatting
 .header-div {
-  background-color: rgb(119, 254, 184);
+  background-color: white;
   width: auto;
   height: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.login{
+  display: flex;
+  align-items: flex-end;
+  padding-right: 15px;
+  padding-bottom: 5px;
+}
+
+.button-login{
+  height: 30px;
+  width: 65px;
+  background-color: rgb(255, 251, 251);
+  color: rgb(103, 100, 100);
+  margin-left: 2px;
+  // border: none;
+  outline: none;
+  border-bottom: 1px solid #aaa;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+  transition: 0.2s ease;
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(103, 100, 100);
+}
+
+.button-login:hover{
+  cursor: pointer;
+  background-color: rgb(103, 100, 100);
+  color: white;
+  font-weight: bold;
+}
+
+.button-signup{
+  height: 30px;
+  width: 65px;
+  background-color: rgb(46, 222, 131);
+  color: white;
+  margin-left: 2px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #aaa;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+  transition: 0.2s ease;
+  border-radius: 6px;
+}
+
+.button-signup:hover {
+  background-color: rgb(78, 247, 160);
+  cursor: pointer;
+
+}
+
+.username{
+  display: block;
+  box-sizing: border-box;
+  margin-left: 4px;
+  margin-right: 4px;
+  width: 150px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #aaa;
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  transition: 0.2s ease;
+}
+
+.password{
+  display: block;
+  box-sizing: border-box;
+  margin-left: 4px;
+  margin-right: 4px;
+  width: 150px;
+  height: 32px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #aaa;
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  transition: 0.2s ease;
 }
 
 .main-section{
@@ -184,8 +279,33 @@
   // max-height:
   overflow-y: scroll;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: rgb(149, 151, 152);
+  color: rgb(123, 123, 123);
   padding-left: 20px;
+}
+
+.searchbar-line{
+  margin-left: 0;
+  max-width: 95%;
+}
+
+.search-button-buys{
+  border-style: solid;
+
+}
+
+.stocks-title{
+  margin-bottom: 2px;
+}
+
+.search-button-favorites{
+  border-style: solid;
+  margin-left: 5px;
+}
+
+.individual-stock:hover {
+  font-weight: bold;
+  cursor: pointer;
+  color: rgb(91, 91, 91);
 }
 
 .news-chat-div {
@@ -197,11 +317,16 @@
 }
 
 .news-div {
-  height: 50%;
+  height: 50vh;
   width: 80%;
   background-color: rgb(201, 194, 194);
   margin-bottom: 20px;
+  overflow-y: scroll;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding-left: 10px;
+  padding-right: 10px;
 }
+
 
 .chat-div {
   height: 40%;
@@ -213,3 +338,27 @@ body {
   background-color: grey;
 }
 
+// root: {
+//   padding: theme.spacing(3, 2),
+//   margin: "50px"
+// },
+// flex: {
+//   display: "flex",
+//   alignItems: "center"
+// },
+// topicWindow: {
+//   width: "30%",
+//   height: "300px",
+//   borderRight: "1px solid grey"
+// },
+// chatWindow: {
+//   width: "70%",
+//   height: "300px",
+//   padding: "20px"
+// },
+// chatBox: {
+//   width: "85%"
+// },
+// button: {
+//   width: "15%"
+// }

@@ -15,15 +15,15 @@ const SearchBar = (props)=>{
     
   }
   return (
-    <div className="search-button">
-      {search}
-      {/* <button className="search-button-button" type="submit">Submit</button> */}
-      <div className="search-button-buys"><span onClick = {()=>props.buysListChangeHandler()}>
-        Buys  
-      </span> <span>  </span>  
-      <span className="search-button-favorites" onClick ={()=>props.favsListChangeHandler()}>
-        Favorites
-      </span></div>
+    <div>
+      <div className="search-button">
+        {search}
+        {/* <button className="search-button-button" type="submit">Submit</button> */}
+      </div>  
+      <div>
+        <span className="search-button-buys" onClick = {()=>props.buysListChangeHandler()}>Buys</span>   
+        <span className="search-button-favorites" onClick ={()=>props.favsListChangeHandler()}>Favorites</span>
+      </div>
     </div>
   )
 }

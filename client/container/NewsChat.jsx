@@ -7,7 +7,11 @@ const NewsChat = props => {
   return (
     <div className="news-chat-div">
       <News></News>
-      <Chat></Chat>
+      <Chat
+        messages={props.messages}
+        sendChatAction={props.sendChatAction}
+        username={props.username}
+      ></Chat>
     </div>
   );
 };

@@ -38,6 +38,8 @@ const CompanySearch = ({
     
     return ( 
         <div>
+            <h2 className="stocks-title">Stocks</h2>
+            <hr className="searchbar-line"></hr>
             <SearchBar 
                 whichTab={whichTab}
                 buysListChangeHandler={buysListChangeHandler}
@@ -46,7 +48,7 @@ const CompanySearch = ({
                 name={name}
                 nameChangeHandler={nameChangeHandler}
             />
-
+            <hr className="searchbar-line"></hr>
             {listOfCompanies}
         </div>
      );
