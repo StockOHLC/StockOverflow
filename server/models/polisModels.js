@@ -87,8 +87,6 @@ const MessageSchema = new Schema(
 
 const Message = mongoose.model("messages", MessageSchema);
 
-
-
 module.exports = {
   User,
   Buy,

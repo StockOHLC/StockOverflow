@@ -17,10 +17,12 @@ router.post(
 router.post(
   "/login",
   userController.verifyUser,
+  sessionController.isLoggedIn,
   cookieController.setSSIDCookie,
   sessionController.startSession,
   // stocksController.getBuys,
   (req, res) => {
+    console.log("i am in the end")
     res.status(200).json(res.locals.userInfo)
   }
 );

@@ -6,10 +6,12 @@ const bcrypt = require('bcryptjs')
 userController.createUser = (req, res, next) => {
   // console.log("I am inside create user");
   const { email_address, password, first_name, last_name } = req.body;
+  console.log("i am in create user")
   models.User.create({ email_address, password, first_name, last_name })
     .then(result => {
       res.locals.userInfo = result;
       res.locals.ssid = result._id;
+      res.locals.isLoggedIn = false;
       next();
     })
     .catch(err => {
@@ -30,7 +32,7 @@ userController.verifyUser = (req, res, next) => {
     if (result === null) {
       console.log("user put a incorrect username or password")
       res.locals.userInfo = { message: "No Such User" };
-      next();
+      return next(res.locals.userInfo);
     } else {
       bcrypt.compare(password, result.password, (error, match) => {
         if (error) { 

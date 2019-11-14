@@ -7,8 +7,10 @@ sessionController.isLoggedIn = (req, res, next) => {
         if (err) {
             return next('Error in sessionController.isLoggedIn' + JSON.stringify(err));
         } else if (!session.length) { 
-            res.send(alert("please sign in again!")) 
+            res.locals.isLoggedIn = false;
+            return next();
         } else { 
+            res.locals.isLoggedIn = true;
             return next();
         }
     })
@@ -16,13 +18,25 @@ sessionController.isLoggedIn = (req, res, next) => {
 
 sessionController.startSession = (req, res, next) => {
     const ssid = res.locals.ssid;
+    console.log("this is the tpye of ssid",  res.locals.ssid )
     // console.log("THIS IS RES.LOCALS.SSID>>>>>>>>>>>>", ssid)
-    Session.create({ cookieId: ssid }, (err) => {
-        if (err) {
-            return next('Error in sessionController.startSession', JSON.stringify(err));
-    } else {
-        return next();
-    };
-})};
+    Session.create({ cookieId: ssid })
+        .then(()=> {
+            console.log("i am in then")
+            return next()})
+        .catch(err => { 
+            console.log("this is the error>>>>>>", err)
+            
+           return next(err)
+        })
+}
+
+//         if (err) {
+//             return next('Error in sessionController.startSession', JSON.stringify(err));
+//     } else {
+//         console.log("i am at t he end of startSession")
+//         return next();
+//     };
+// })};
 
 module.exports = sessionController;

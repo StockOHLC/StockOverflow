@@ -21,20 +21,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const stocksRouter = require('./routes/stocksRouter');
-const usersRouter = require('./routes/userRouter');
-const pastStockRouter = require('./routes/pastStocksRouter');
-const messageRouter = require('./routes/messageRouter');
+const stocksRouter = require("./routes/stocksRouter");
+const usersRouter = require("./routes/userRouter");
+const messageRouter = require("./routes/messageRouter");
+const newsRouter = require("./routes/newsRouter");
 
 //WEBPACK BUILD
 app.use("/build", express.static(path.join(__dirname, "../build")));
 
 // ROUTE HANDLING
-app.use('/user', usersRouter);
-app.use('/stocks', stocksRouter);
-app.use('/pastStock', pastStockRouter);
-app.use('/messages', messageRouter);
-
+app.use("/user", usersRouter);
+app.use("/stocks", stocksRouter);
+app.use("/news", newsRouter);
+app.use("/messages", messageRouter);
 // app.use('/api', apiRouter);
 
 //MAIN PAGE
