@@ -44,7 +44,7 @@ class HomePage extends Component {
     this.nameChangeHandler = this.nameChangeHandler.bind(this);
     this.SignupClick = this.SignupClick.bind(this);
     this.LoginClick = this.LoginClick.bind(this);
-    this.handleSumbit = this.handleSumbit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.emailHandler = this.emailHandler.bind(this);
     this.passwordHandler = this.passwordHandler.bind(this);
     this.firstnameHandler = this.firstnameHandler.bind(this);
@@ -119,15 +119,14 @@ class HomePage extends Component {
           alert("Your password does not match with our data!");
         } else {
           alert("welcome!");
-          console.log("THIS IS THE BODY>>>>>>", body);
           this.setState({
             favorites: body.favorites,
             email: body.email_address,
             buys: body.buys
           });
         }
-      });
-  }
+      })}
+
 
   stockListChangeHandler() {
     this.setState({ whichTab: "1" });
@@ -161,7 +160,7 @@ class HomePage extends Component {
     }
   }
 
-  handleSumbit(e) { 
+  handleSubmit(e) { 
     e.preventDefault();
     alert('Your account has been created');
     axios.post('/user/signup', {
@@ -217,6 +216,7 @@ class HomePage extends Component {
 
     return (
       <div>
+        {console.log("this.state.whichTab", this.state.whichTab)}
         <Header 
           SignupClick={this.SignupClick}
           LoginClick={this.LoginClick}
@@ -233,7 +233,7 @@ class HomePage extends Component {
           lastnameHandler = {this.lastnameHandler} 
           emailHandler = {this.emailHandler} 
           passwordHandler = {this.passwordHandler} 
-          handleSumbit = {this.handleSumbit } 
+          handleSubmit = {this.handleSubmit } 
           toggleSignupPopup = {this.toggleSignupPopup} 
         /> : null}
         

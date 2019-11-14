@@ -3,7 +3,7 @@ const userController = require("../controllers/userController");
 const router = express.Router();
 const stocksController = require("../controllers/stocksController");
 const cookieController = require('../controllers/cookieController');
-const sessionController = require('../controllers/sessionController')
+const sessionController = require('../controllers/sessionController');
 
 router.post(
   "/signup", 
@@ -19,8 +19,10 @@ router.post(
   userController.verifyUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
-  stocksController.getBuys,
-  (req, res) => res.status(200).json(res.locals.userInfo)
+  // stocksController.getBuys,
+  (req, res) => {
+    res.status(200).json(res.locals.userInfo)
+  }
 );
 
 router.post("/addfav", sessionController.isLoggedIn, userController.addFavs, (req, res) =>

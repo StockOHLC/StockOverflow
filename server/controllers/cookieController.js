@@ -5,7 +5,7 @@ const cookieController = {};
 // @param runInNewContext
 
 cookieController.setSSIDCookie = (req, res, next) => {
-    res.cookie('ssid', res.locals.id, {httpOnly: true})
+    res.cookie('ssid', res.locals.ssid, {httpOnly: true})
     return next();
 }
 

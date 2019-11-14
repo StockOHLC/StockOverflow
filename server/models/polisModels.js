@@ -16,6 +16,8 @@ mongoose
 
 const Schema = mongoose.Schema;
 
+const SALT_FACTOR = 10;
+const bcrypt = require('bcryptjs');
 //userSchema
 const userSchema = new Schema({
   email_address: { type: String, required: true, unique: true },
@@ -23,6 +25,29 @@ const userSchema = new Schema({
   first_name: { type: String, required: true },
   last_name: String,
   favorites: [String]
+});
+
+// Bcrypt:
+
+// userSchema.pre('save', (next) => {
+//   bcrypt.hash(this.password, SALT_FACTOR, (err, hash) => {
+//     console.log("THIS IS THE PASSWORD, >>>>>>>>>>>>>>" , this.password)
+//     if (err) { 
+//       return next(err);
+//     } else { 
+//       this.password = hash;
+//       return next();
+//     }
+//   })
+// })
+
+userSchema.pre('save', function(next) {     
+  if(this.password) {                                                                                                                                                        
+      var salt = bcrypt.genSaltSync(10)                                                                                                                                     
+      this.password  = bcrypt.hashSync(this.password, salt)
+      console.log(this.password)                                                                                                                
+  }              //                                                                                                                                                            
+  return next();
 });
 
 const User = mongoose.model("user", userSchema);
@@ -62,20 +87,7 @@ const MessageSchema = new Schema(
 
 const Message = mongoose.model("messages", MessageSchema);
 
-//Bcrypt:
-const SALT_FACTOR = 10;
-const bcrypt = require('bcryptjs');
 
-userSchema.pre('save', (next) => {
-  bcrypt.hash(this.password, SALT_FACTOR, (err, hash) => {
-    if (err) { 
-      return next(err);
-    } else { 
-      this.password = hash;
-      return next();
-    }
-  })
-})
 
 module.exports = {
   User,

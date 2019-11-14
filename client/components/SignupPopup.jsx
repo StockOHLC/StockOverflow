@@ -10,7 +10,7 @@ const SignupPopup = props => {
         <div className = 'popup'>
             <div className = 'popup_inner'>
         
-        <form onSubmit={props.handleSumbit}>
+        <form onSubmit={props.handleSubmit}>
       
         <span className= "closeButton" onClick={handleSave}>X</span>
             <div>
@@ -57,7 +57,7 @@ const SignupPopup = props => {
             </label>
             </div>
             
-            <input type = "submit" value = "Sumbit" />
+            <input type = "submit" value = "Submit" />
         </form>
         </div> 
         </div>
