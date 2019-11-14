@@ -7,7 +7,7 @@ import React from "react";
 const Chat = props => {
   return (
     <div className="chat-div">
-      
+      <h2 className="chat-div-title">Chat</h2>
     </div>
   );
 };

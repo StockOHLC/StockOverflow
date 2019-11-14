@@ -274,9 +274,7 @@ class HomePage extends Component {
               </Route>
             </Switch>
           </div>
-          <div className="newsChat-div">
             <NewsChat></NewsChat>
-          </div>
         </div>
       </div>
     );

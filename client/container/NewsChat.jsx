@@ -7,7 +7,6 @@ const NewsChat = props => {
   return (
     <div className="news-chat-div">
       <News></News>
-      <br className="news-chat-div-break"></br>
       <Chat></Chat>
     </div>
   );
