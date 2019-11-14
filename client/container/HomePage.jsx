@@ -7,10 +7,11 @@ import CompanySearch from "./CompanySearch.jsx";
 import SelectedCompany from "./SelectedCompany.jsx";
 import NewsChat from "./NewsChat.jsx";
 import SignupPopup from "../components/SignupPopup";
-
 import Chat from "./../components/Chat";
 
+//socket-client connection
 import io from "socket.io-client";
+// const socket = io("ws://localhost:3000", { transports: ["websocket"] });
 
 let socket;
 
@@ -37,6 +38,7 @@ class HomePage extends Component {
       isSignupPicked: false,
       companyName: "",
       companySymbol: "",
+      endpoint: "localhost:3000",
       messages: []
     };
 
@@ -64,6 +66,14 @@ class HomePage extends Component {
     this.buysListChangeHandler = this.buysListChangeHandler.bind(this);
     this.sendChatAction = this.sendChatAction.bind(this);
   }
+
+  // useEffect(() => {
+  //   //socket
+  //   socket.on('message', msg => {
+  //     //display the messages
+  //     console.log('we got a message', msg)
+  //   });
+  // }, []);
 
   // functions controlling login and sign up
   SignupClick() {
@@ -297,7 +307,7 @@ class HomePage extends Component {
           <NewsChat
             messages={this.state.messages}
             sendChatAction={this.sendChatAction}
-            username={this.state.email}
+            username={this.state.username}
           ></NewsChat>
         </section>
       </div>

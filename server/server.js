@@ -10,17 +10,17 @@ const socketIO = require("socket.io");
 const server = http.createServer(app);
 const io = socketIO(server);
 
-// const http = require('http').createServer(app);
-// const io = require('socket.io')(http); //http is the server- do we do .createServer(http)?
+// const http = require("http").createServer(app);
+// const io = require("socket.io")(http); //http is the server- do we do .createServer(http)?
 
 //SOCKETS
-io.on("connection", socket => {
-  console.log("made some connections");
-  socket.emit("message", "fuck");
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
-  });
-});
+// io.on("connection", socket => {
+//   console.log("made some connections");
+//   socket.emit("message", "fuck");
+//   socket.on("disconnect", () => {
+//     console.log("user disconnected");
+//   });
+// });
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -55,6 +55,10 @@ io.on("connection", socket => {
 
     io.emit("chat message", message);
   });
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
 });
 
 //CATCH-ALL HANDLER
@@ -64,9 +68,6 @@ app.use("*", (req, res, err) => {
 
 //GLOBAL ERROR HANDLING
 app.use((err, req, res, next) => {
-  console.log(`req: ${req}`);
-  console.log(`res: ${res}`);
-  console.log(`err: ${err}`);
   return res.status(400).json("Global Error");
 });
 

@@ -51,7 +51,7 @@ const Chat = props => {
           Chat app
         </Typography>
 
-        {console.log(props.messages)}
+        {console.log("messages: ", props.messages)}
 
         <div className={classes.flex}>
           <div className={classes.chatWindow}>
