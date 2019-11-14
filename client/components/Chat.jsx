@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+//make this into a stateful component?
 const Chat = props => {
   const classes = useStyles();
 
