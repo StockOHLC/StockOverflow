@@ -9,8 +9,8 @@ const StockBox = props => {
   }
   return (
     <div
-      id="stockBox"
-      className="grow"
+      className="stock-div"
+      // className="grow"
       // onClick={() => props.toggleCompanyPage(name, symbol)}
       onClick={() => props.togglePopup(name, symbol)}
     >

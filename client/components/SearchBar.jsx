@@ -4,11 +4,7 @@ const SearchBar = (props)=>{
   let search;
   if(props.whichTab == '1'){
      search=( <form >
-    
-
-
-      <label>Search Companies:     </label>
-
+      <label>Search Companies:</label>
       <input type="text" value={props.name} onChange={props.nameChangeHandler} required></input>
       </form>);
   }
@@ -19,17 +15,16 @@ const SearchBar = (props)=>{
     
   }
   return (
-    
-    <div>
+    <div className="search-button">
       {search}
-      <div><span onClick = {()=>props.buysListChangeHandler()}>
+      {/* <button className="search-button-button" type="submit">Submit</button> */}
+      <div className="search-button-buys"><span onClick = {()=>props.buysListChangeHandler()}>
         Buys  
       </span> <span>  </span>  
-      <span onClick ={()=>props.favsListChangeHandler()}>
+      <span className="search-button-favorites" onClick ={()=>props.favsListChangeHandler()}>
         Favorites
       </span></div>
     </div>
-
   )
 }
 export default SearchBar;

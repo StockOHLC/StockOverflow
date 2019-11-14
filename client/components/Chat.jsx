@@ -6,8 +6,7 @@ import React from "react";
 //make this into a stateful component?
 const Chat = props => {
   return (
-    <div>
-      <div>This is where the chatbox will be</div>
+    <div className="chat-div">
       
     </div>
   );

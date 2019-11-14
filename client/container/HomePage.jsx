@@ -217,65 +217,67 @@ class HomePage extends Component {
 
     return (
       <div>
-        <Header 
-          SignupClick={this.SignupClick}
-          LoginClick={this.LoginClick}
-          passwordChangeHandler={this.passwordChangeHandler}
-          usernameChangeHandler={this.usernameChangeHandler}
-          enteredUsername={this.state.enteredUsername}
-          enteredPassword={this.state.enteredPassword}
-          toggleSignupPopup = {this.toggleSignupPopup}
+        <div>
+          <Header 
+            SignupClick={this.SignupClick}
+            LoginClick={this.LoginClick}
+            passwordChangeHandler={this.passwordChangeHandler}
+            usernameChangeHandler={this.usernameChangeHandler}
+            enteredUsername={this.state.enteredUsername}
+            enteredPassword={this.state.enteredPassword}
+            toggleSignupPopup = {this.toggleSignupPopup}
 
-        />
-      {this.state.isSignupPicked? 
-        <SignupPopup  
-          firstnameHandler = {this.firstnameHandler} 
-          lastnameHandler = {this.lastnameHandler} 
-          emailHandler = {this.emailHandler} 
-          passwordHandler = {this.passwordHandler} 
-          handleSumbit = {this.handleSumbit } 
-          toggleSignupPopup = {this.toggleSignupPopup} 
-        /> : null}
-        
-        <section>
+          />
+            {this.state.isSignupPicked? 
+              <SignupPopup  
+                firstnameHandler = {this.firstnameHandler} 
+                lastnameHandler = {this.lastnameHandler} 
+                emailHandler = {this.emailHandler} 
+                passwordHandler = {this.passwordHandler} 
+                handleSumbit = {this.handleSumbit } 
+                toggleSignupPopup = {this.toggleSignupPopup} 
+              /> : null}
+        </div>
+        <div className="main-section">
           {/* CompanySearch uses SearchBar.jsx and Stocklist.jsx */}
-          <Switch>
-            <Route 
-            exact path='/'
-            render={props => (
-              <CompanySearch 
-                whichTab={this.state.whichTab}
-                buysListChangeHandler={this.buysListChangeHandler}
-                stockListChangeHandler={this.stockListChangeHandler}
-                favsListChangeHandler={this.favsListChangeHandler}
-                name={this.state.name}
-                nameChangeHandler={this.nameChangeHandler}
+          <div className="stocks-div">
+            <Switch>
+              <Route 
+              exact path='/'
+              render={props => (
+                <CompanySearch 
+                  whichTab={this.state.whichTab}
+                  buysListChangeHandler={this.buysListChangeHandler}
+                  stockListChangeHandler={this.stockListChangeHandler}
+                  favsListChangeHandler={this.favsListChangeHandler}
+                  name={this.state.name}
+                  nameChangeHandler={this.nameChangeHandler}
+                  togglePopup={this.togglePopup}
+                />
+              )}
+              >
+              </Route>
+
+              {/* SelectedCompany holds the stockpopup.jsx */}
+              <Route
+              exact path='/selectedCompany'
+              render={props => (
+                <SelectedCompany 
+                isPicked={this.state.isPicked}
+                userName={this.state.email}
+                companySymbol={this.state.companySymbol}
+                companyName={this.state.companyName}
                 togglePopup={this.togglePopup}
-              />
-            )}
-            >
-            </Route>
-
-            {/* SelectedCompany holds the stockpopup.jsx */}
-            <Route
-            exact path='/selectedCompany'
-            render={props => (
-              <SelectedCompany 
-              isPicked={this.state.isPicked}
-              userName={this.state.email}
-              companySymbol={this.state.companySymbol}
-              companyName={this.state.companyName}
-              togglePopup={this.togglePopup}
-              />
-            )}
-            >
-            </Route>
-          </Switch>
-        </section>
-
-        <section>
-          <NewsChat></NewsChat>
-        </section>
+                />
+              )}
+              >
+              </Route>
+            </Switch>
+          </div>
+          <div className="newsChat-div">
+            <NewsChat></NewsChat>
+          </div>
+        </div>
       </div>
     );
   }
