@@ -56,6 +56,9 @@ io.on("connection", socket => {
     io.emit("chat message", message);
   });
 
+  // Save messages stretch feature
+  // Emit messages to frontend stretch feature
+
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });
