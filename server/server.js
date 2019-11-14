@@ -22,9 +22,21 @@ const io = socketIO(server);
 //   });
 // });
 
-app.use(cookieParser());
+const http = require('http').createServer(app);
+const io = require('socket.io')(http); //http is the server- do we do .createServer(http)?
+
+//SOCKETS
+io.on('connection', (socket) => {
+  console.log('made some connections')
+  socket.emit('message', 'fuck');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+})
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 const stocksRouter = require("./routes/stocksRouter");
 const usersRouter = require("./routes/userRouter");
@@ -81,5 +93,6 @@ app.use((err, req, res, next) => {
 server.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
+
 
 module.exports = app;

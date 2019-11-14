@@ -48,7 +48,7 @@ class HomePage extends Component {
     this.nameChangeHandler = this.nameChangeHandler.bind(this);
     this.SignupClick = this.SignupClick.bind(this);
     this.LoginClick = this.LoginClick.bind(this);
-    this.handleSumbit = this.handleSumbit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.emailHandler = this.emailHandler.bind(this);
     this.passwordHandler = this.passwordHandler.bind(this);
     this.firstnameHandler = this.firstnameHandler.bind(this);
@@ -131,7 +131,6 @@ class HomePage extends Component {
           alert("Your password does not match with our data!");
         } else {
           alert("welcome!");
-          console.log(body);
           this.setState({
             favorites: body.favorites,
             email: body.email_address,
@@ -269,6 +268,26 @@ class HomePage extends Component {
               /> : null}
         </div>
         <div className="main-section">
+        <Header
+          SignupClick={this.SignupClick}
+          LoginClick={this.LoginClick}
+          passwordChangeHandler={this.passwordChangeHandler}
+          usernameChangeHandler={this.usernameChangeHandler}
+          enteredUsername={this.state.enteredUsername}
+          enteredPassword={this.state.enteredPassword}
+          toggleSignupPopup={this.toggleSignupPopup}
+        />
+        {this.state.isSignupPicked ? (
+          <SignupPopup
+            firstnameHandler={this.firstnameHandler}
+            lastnameHandler={this.lastnameHandler}
+            emailHandler={this.emailHandler}
+            passwordHandler={this.passwordHandler}
+            handleSumbit={this.handleSumbit}
+            toggleSignupPopup={this.toggleSignupPopup}
+          />
+        ) : null}
+        <section>
           {/* CompanySearch uses SearchBar.jsx and Stocklist.jsx */}
             <section className="stocks-div">
               <Switch>
@@ -286,7 +305,6 @@ class HomePage extends Component {
                   />
                 )}
               ></Route>
-
               {/* SelectedCompany holds the stockpopup.jsx */}
               <Route
                 exact
@@ -303,13 +321,13 @@ class HomePage extends Component {
               ></Route>
             </Switch>
           </section>
-
           <section>
             <NewsChat
               messages={this.state.messages}
               sendChatAction={this.sendChatAction}
               username={this.state.username}
             ></NewsChat>
+          </section>
           </section>
         </div>
       </div>
