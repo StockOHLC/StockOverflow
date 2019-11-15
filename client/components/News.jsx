@@ -23,8 +23,8 @@ class News extends Component {
     const newsArray = [];
     for (let i = 0; i < this.state.news.length; i++) {
       newsArray.push(
-        <div className="article">
-          <a href={this.state.news[i].url} key={"key " + i}>
+        <div className="article" key={"key " + i}>
+          <a href={this.state.news[i].url}>
             {this.state.news[i].title}
           </a>
           <div>{this.state.news[i].content}</div>

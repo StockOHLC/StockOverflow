@@ -53,8 +53,8 @@ class HomePage extends Component {
     this.passwordHandler = this.passwordHandler.bind(this);
     this.firstnameHandler = this.firstnameHandler.bind(this);
     this.lastnameHandler = this.lastnameHandler.bind(this);
+    this.signUpLinkedIn = this.signUpLinkedIn.bind(this);
 
-    // function
     this.togglePopup = this.togglePopup.bind(this);
     this.toggleSignupPopup = this.toggleSignupPopup.bind(this);
 
@@ -138,10 +138,6 @@ class HomePage extends Component {
             username: body.user_name
           });
         }
-<<<<<<< HEAD
-      })}
-
-=======
       })
       .finally(() => {
         this.setState({
@@ -150,7 +146,15 @@ class HomePage extends Component {
         });
       });
   }
->>>>>>> master
+
+  signUpLinkedIn() {
+    fetch('/linkedin/auth')
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data);
+        alert('Successfully logged in with linkedin')
+      })
+  }
 
   stockListChangeHandler() {
     this.setState({ whichTab: "1" });
@@ -183,11 +187,7 @@ class HomePage extends Component {
     }
   }
 
-<<<<<<< HEAD
-  handleSubmit(e) { 
-=======
-  handleSumbit(e) {
->>>>>>> master
+  handleSubmit(e) {
     e.preventDefault();
     alert("Your account has been created");
     axios.post("/user/signup", {
@@ -255,12 +255,7 @@ class HomePage extends Component {
 
     return (
       <div>
-<<<<<<< HEAD
-        {console.log("this.state.whichTab", this.state.whichTab)}
-        <Header 
-=======
         <Header
->>>>>>> master
           SignupClick={this.SignupClick}
           LoginClick={this.LoginClick}
           passwordChangeHandler={this.passwordChangeHandler}
@@ -269,18 +264,6 @@ class HomePage extends Component {
           enteredPassword={this.state.enteredPassword}
           toggleSignupPopup={this.toggleSignupPopup}
         />
-<<<<<<< HEAD
-      {this.state.isSignupPicked? 
-        <SignupPopup  
-          firstnameHandler = {this.firstnameHandler} 
-          lastnameHandler = {this.lastnameHandler} 
-          emailHandler = {this.emailHandler} 
-          passwordHandler = {this.passwordHandler} 
-          handleSubmit = {this.handleSubmit } 
-          toggleSignupPopup = {this.toggleSignupPopup} 
-        /> : null}
-        
-=======
         {this.state.isSignupPicked ? (
           <SignupPopup
             firstnameHandler={this.firstnameHandler}
@@ -289,10 +272,10 @@ class HomePage extends Component {
             passwordHandler={this.passwordHandler}
             handleSumbit={this.handleSumbit}
             toggleSignupPopup={this.toggleSignupPopup}
+            signUpLinkedIn={this.signUpLinkedIn}
           />
         ) : null}
 
->>>>>>> master
         <section>
           {/* CompanySearch uses SearchBar.jsx and Stocklist.jsx */}
           <Switch>
