@@ -27,6 +27,17 @@ module.exports = {
           { loader: 'css-loader' },
           { loader: 'sass-loader' }
         ]
+      },
+      {
+        test: /\.(jpg|png|gif|svg|pdf|ico)$/,
+        exclude: /assets/,
+        use: [
+          { loader: 'file-loader',
+            options: {
+              name: '[path][name]-[hash:8].[ext]'
+            },
+          }
+        ]
       }
     ]
   },
@@ -40,6 +51,9 @@ module.exports = {
       '/':{
         target: 'http://localhost:3000',
         secure: false,
+      },
+      '/assets/**': {
+        target: 'http://locahost:3000'
       }
     }
   }

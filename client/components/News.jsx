@@ -35,6 +35,7 @@ class News extends Component {
     return (
       <div className="news-div">
         <h2 className="news-div-title">News</h2>
+        <hr className="news-div-line"></hr>
         <div className="news-div-links" id="newsFeed">{newsArray}</div>
       </div>
     )

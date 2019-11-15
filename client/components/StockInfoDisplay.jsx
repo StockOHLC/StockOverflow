@@ -60,10 +60,10 @@ const StockInfoDisplay = props => {
   console.log("stock price: ", stockPriceAndDate.price);
   return (
     <div id="stockBuyInfo">
-      <p>What date do you want to buy?</p>
+      <p className="stock-popup-text">What date do you want to buy?</p>
       <input type="date" onChange={saveDate}></input>
-      <p>Price: {stockPriceAndDate.price}</p>
-      <p>How many shares?</p>
+      <p className="stock-popup-text">Price: {stockPriceAndDate.price}</p>
+      <p className="stock-popup-text">How many shares?</p>
       <input type="text" onChange={saveNumberOfShares}></input>
       <button onClick={handleBuy}>Buy</button>
     </div>

@@ -16,9 +16,9 @@ const App = props => {
   // }, []);
 
   return (
-    <div>
+    <>
       <HomePage></HomePage>
-    </div>
+    </>
   );
 };
 

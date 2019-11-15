@@ -30,7 +30,7 @@ const CompanySearch = ({
       );
     } else if (whichTab == "3") {
       listOfCompanies = (
-        <div>
+        <div >
           <RenderList list={buys} togglePopup={togglePopup} />
         </div>
       );
@@ -40,6 +40,7 @@ const CompanySearch = ({
         <div>
             <h2 className="stocks-title">Stocks</h2>
             <hr className="searchbar-line"></hr>
+            <section className="searchbar">
             <SearchBar 
                 whichTab={whichTab}
                 buysListChangeHandler={buysListChangeHandler}
@@ -48,8 +49,9 @@ const CompanySearch = ({
                 name={name}
                 nameChangeHandler={nameChangeHandler}
             />
+            </section>
             <hr className="searchbar-line"></hr>
-            {listOfCompanies}
+              {listOfCompanies}
         </div>
      );
 }

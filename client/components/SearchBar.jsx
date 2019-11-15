@@ -3,9 +3,9 @@ import React, {useState} from 'react'
 const SearchBar = (props)=>{
   let search;
   if(props.whichTab == '1'){
-     search=( <form >
+     search=( <form className="searchbar">
       <label>Search Companies:</label>
-      <input type="text" value={props.name} onChange={props.nameChangeHandler} required></input>
+      <input className="searchbar-input" type="text" value={props.name} onChange={props.nameChangeHandler} required></input>
       </form>);
   }
   else{

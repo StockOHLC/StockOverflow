@@ -178,7 +178,7 @@ class HomePage extends Component {
     }
   }
 
-  handleSumbit(e) {
+  handleSubmit(e) {
     e.preventDefault();
     alert("Your account has been created");
     axios.post("/user/signup", {
@@ -245,8 +245,8 @@ class HomePage extends Component {
     }
 
     return (
-      <div>
-        <div>
+      <div className="div-with-header-and-main">
+        <>
           <Header 
             SignupClick={this.SignupClick}
             LoginClick={this.LoginClick}
@@ -266,28 +266,9 @@ class HomePage extends Component {
                 handleSumbit = {this.handleSumbit } 
                 toggleSignupPopup = {this.toggleSignupPopup} 
               /> : null}
-        </div>
+        </>
+        <hr className="main-line-break"></hr>
         <div className="main-section">
-        <Header
-          SignupClick={this.SignupClick}
-          LoginClick={this.LoginClick}
-          passwordChangeHandler={this.passwordChangeHandler}
-          usernameChangeHandler={this.usernameChangeHandler}
-          enteredUsername={this.state.enteredUsername}
-          enteredPassword={this.state.enteredPassword}
-          toggleSignupPopup={this.toggleSignupPopup}
-        />
-        {this.state.isSignupPicked ? (
-          <SignupPopup
-            firstnameHandler={this.firstnameHandler}
-            lastnameHandler={this.lastnameHandler}
-            emailHandler={this.emailHandler}
-            passwordHandler={this.passwordHandler}
-            handleSumbit={this.handleSumbit}
-            toggleSignupPopup={this.toggleSignupPopup}
-          />
-        ) : null}
-        <section>
           {/* CompanySearch uses SearchBar.jsx and Stocklist.jsx */}
             <section className="stocks-div">
               <Switch>
@@ -327,7 +308,6 @@ class HomePage extends Component {
               sendChatAction={this.sendChatAction}
               username={this.state.username}
             ></NewsChat>
-          </section>
           </section>
         </div>
       </div>

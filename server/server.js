@@ -22,8 +22,8 @@ const io = socketIO(server);
 //   });
 // });
 
-const http = require('http').createServer(app);
-const io = require('socket.io')(http); //http is the server- do we do .createServer(http)?
+// const http = require('http').createServer(app);
+// const io = require('socket.io')(http); //http is the server- do we do .createServer(http)?
 
 //SOCKETS
 io.on('connection', (socket) => {
@@ -54,6 +54,9 @@ app.use("/pastStock", pastStockRouter);
 app.use("/messages", messageRouter);
 app.use("/news", newsRouter);
 // app.use('/api', apiRouter);
+
+//IMG
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
 //MAIN PAGE
 app.use("/", (req, res) => {

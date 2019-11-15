@@ -514,7 +514,7 @@ const StockList = props => {
 
   const arrToShow = [];
   const favList = [];
-  let stocksToShow = 40;
+  let stocksToShow = 504;
   if (props.name !== "") {
     stocksToShow = snp500.length;
   }
@@ -550,7 +550,7 @@ const StockList = props => {
   }
 
   return (
-    <div>
+    <div className="grid-stocks">
       {favList.length !== 0 ? <div>Favorites {favList}</div> : null}
       {arrToShow}
     </div>
