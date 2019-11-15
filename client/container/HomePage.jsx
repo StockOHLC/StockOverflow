@@ -9,6 +9,7 @@ import NewsChat from "./NewsChat.jsx";
 import SignupPopup from "../components/SignupPopup";
 import Chat from "./../components/Chat";
 
+
 //socket-client connection
 import io from "socket.io-client";
 // const socket = io("ws://localhost:3000", { transports: ["websocket"] });
@@ -111,8 +112,8 @@ class HomePage extends Component {
         }
       });
   }
+
   LoginClick() {
-    console.log("inside login click");
     fetch("/user/login", {
       method: "POST",
       headers: {
@@ -135,13 +136,9 @@ class HomePage extends Component {
             favorites: body.favorites,
             email: body.email_address,
             buys: body.buys,
-            username: body.user_name
+            username: body.email_address
           });
         }
-<<<<<<< HEAD
-      })}
-
-=======
       })
       .finally(() => {
         this.setState({
@@ -150,7 +147,6 @@ class HomePage extends Component {
         });
       });
   }
->>>>>>> master
 
   stockListChangeHandler() {
     this.setState({ whichTab: "1" });
@@ -167,7 +163,6 @@ class HomePage extends Component {
   }
   usernameChangeHandler(event) {
     event.preventDefault();
-    // console.log(event.target.value);
     this.setState({ enteredUsername: event.target.value });
   }
   nameChangeHandler(event) {
@@ -183,11 +178,7 @@ class HomePage extends Component {
     }
   }
 
-<<<<<<< HEAD
   handleSubmit(e) { 
-=======
-  handleSumbit(e) {
->>>>>>> master
     e.preventDefault();
     alert("Your account has been created");
     axios.post("/user/signup", {
@@ -246,7 +237,6 @@ class HomePage extends Component {
     if (!socket) {
       socket = io(this.state.endpoint);
       socket.on("chat message", message => {
-        console.log("message from server: ", message);
         this.setState(prevState => ({
           messages: [...prevState.messages, message]
         }));
@@ -255,12 +245,7 @@ class HomePage extends Component {
 
     return (
       <div>
-<<<<<<< HEAD
-        {console.log("this.state.whichTab", this.state.whichTab)}
-        <Header 
-=======
         <Header
->>>>>>> master
           SignupClick={this.SignupClick}
           LoginClick={this.LoginClick}
           passwordChangeHandler={this.passwordChangeHandler}
@@ -269,7 +254,6 @@ class HomePage extends Component {
           enteredPassword={this.state.enteredPassword}
           toggleSignupPopup={this.toggleSignupPopup}
         />
-<<<<<<< HEAD
       {this.state.isSignupPicked? 
         <SignupPopup  
           firstnameHandler = {this.firstnameHandler} 
@@ -280,19 +264,6 @@ class HomePage extends Component {
           toggleSignupPopup = {this.toggleSignupPopup} 
         /> : null}
         
-=======
-        {this.state.isSignupPicked ? (
-          <SignupPopup
-            firstnameHandler={this.firstnameHandler}
-            lastnameHandler={this.lastnameHandler}
-            emailHandler={this.emailHandler}
-            passwordHandler={this.passwordHandler}
-            handleSumbit={this.handleSumbit}
-            toggleSignupPopup={this.toggleSignupPopup}
-          />
-        ) : null}
-
->>>>>>> master
         <section>
           {/* CompanySearch uses SearchBar.jsx and Stocklist.jsx */}
           <Switch>
@@ -305,6 +276,7 @@ class HomePage extends Component {
                   buysListChangeHandler={this.buysListChangeHandler}
                   stockListChangeHandler={this.stockListChangeHandler}
                   favsListChangeHandler={this.favsListChangeHandler}
+                  favorites = {this.state.favorites}
                   name={this.state.name}
                   nameChangeHandler={this.nameChangeHandler}
                   togglePopup={this.togglePopup}
@@ -320,6 +292,7 @@ class HomePage extends Component {
                 <SelectedCompany
                   isPicked={this.state.isPicked}
                   userName={this.state.email}
+                  favorites = {this.state.favorites}
                   companySymbol={this.state.companySymbol}
                   companyName={this.state.companyName}
                   togglePopup={this.togglePopup}

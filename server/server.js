@@ -22,9 +22,6 @@ const io = socketIO(server);
 //   });
 // });
 
-const http = require('http').createServer(app);
-const io = require('socket.io')(http); //http is the server- do we do .createServer(http)?
-
 //SOCKETS
 io.on('connection', (socket) => {
   console.log('made some connections')

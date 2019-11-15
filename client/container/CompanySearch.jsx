@@ -1,6 +1,7 @@
 import React from 'react';
 import StockList from '../components/StockList.jsx';
 import SearchBar from '../components/SearchBar.jsx';
+import RenderList from '../components/renderList.jsx'
 
 const CompanySearch = ({
     whichTab, 

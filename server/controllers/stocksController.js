@@ -9,7 +9,7 @@ stocksController.getBuys = (req, res, next) => {
   models.Buy.find({ email_address }, (err, buys) => {
     if (err)
       return next("Error in stocksController.getBuys: " + JSON.stringify(err));
-    res.locals.userInfo.buys = buys;
+    res.locals.buys = buys;
     return next();
   });
 };
