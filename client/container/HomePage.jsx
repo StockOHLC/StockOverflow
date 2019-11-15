@@ -8,6 +8,7 @@ import SelectedCompany from "./SelectedCompany.jsx";
 import NewsChat from "./NewsChat.jsx";
 import SignupPopup from "../components/SignupPopup";
 import Chat from "./../components/Chat";
+import News from "./../components/News";
 
 //socket-client connection
 import io from "socket.io-client";
@@ -39,7 +40,8 @@ class HomePage extends Component {
       companyName: "",
       companySymbol: "",
       endpoint: "localhost:3000",
-      messages: []
+      messages: [],
+      news: []
     };
 
     // bind functions related to logging in and signing up
@@ -65,6 +67,9 @@ class HomePage extends Component {
     this.favsListChangeHandler = this.favsListChangeHandler.bind(this);
     this.buysListChangeHandler = this.buysListChangeHandler.bind(this);
     this.sendChatAction = this.sendChatAction.bind(this);
+
+    //bind function for news population
+    this.newsChangeHandler = this.newsChangeHandler.bind(this);
   }
 
   // useEffect(() => {
@@ -169,6 +174,9 @@ class HomePage extends Component {
     event.preventDefault();
     this.setState({ name: event.target.value });
   }
+  newsChangeHandler(result) {
+    this.setState({ news: result });
+  }
 
   toggleSignupPopup() {
     if (this.state.isSignupPicked == false) {
@@ -178,7 +186,7 @@ class HomePage extends Component {
     }
   }
 
-  handleSumbit(e) {
+  handleSubmit(e) {
     e.preventDefault();
     alert("Your account has been created");
     axios.post("/user/signup", {
@@ -234,6 +242,7 @@ class HomePage extends Component {
   }
 
   render() {
+    console.log(this.state.isPicked);
     if (!socket) {
       socket = io(this.state.endpoint);
       socket.on("chat message", message => {
@@ -307,6 +316,11 @@ class HomePage extends Component {
             messages={this.state.messages}
             sendChatAction={this.sendChatAction}
             username={this.state.username}
+            isPicked={this.state.isPicked}
+            companySymbol={this.state.companySymbol}
+            companyName={this.state.companyName}
+            news={this.state.news}
+            newsChangeHandler={this.newsChangeHandler}
           ></NewsChat>
         </section>
       </div>

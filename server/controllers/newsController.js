@@ -2,7 +2,8 @@ const fetch = require("node-fetch");
 const newsController = {};
 
 newsController.getCurrentNews = (req, res, next) => {
-  const { stock } = req.body;
+  console.log("this is being sent from front end", req.body);
+  const { companyName } = req.body;
   let today = new Date();
   let dd = String(today.getDate()).padStart(2, "0");
   let mm = String(today.getMonth() + 1).padStart(2, "0");
@@ -10,7 +11,7 @@ newsController.getCurrentNews = (req, res, next) => {
   today = yyyy + "-" + mm + "-" + dd;
   console.log(today);
   fetch(
-    `https://newsapi.org/v2/everything?q=${stock}&from=${today}&sortBy=popularity&apiKey=cb4a8ab6553b4bb3aaa76d6b44177db4`
+    `https://newsapi.org/v2/everything?q=${companyName}&from=${today}&sortBy=popularity&apiKey=cb4a8ab6553b4bb3aaa76d6b44177db4`
   )
     .then(result => result.json())
     .then(result => {
@@ -29,6 +30,7 @@ newsController.getTopNews = (req, res, next) => {
     .then(result => result.json())
     .then(result => {
       res.locals.news = result.articles;
+      // console.log(res.locals.news);
       next();
     });
 };

@@ -2,7 +2,7 @@ const express = require("express");
 const newsController = require("../controllers/newsController");
 const router = express.Router();
 
-router.get("/currentNews", newsController.getCurrentNews, (req, res) => {
+router.post("/currentNews", newsController.getCurrentNews, (req, res) => {
   res.status(200).json(res.locals.news);
 });
 
