@@ -1,17 +1,19 @@
-import React from 'react';
-import StockList from '../components/StockList.jsx';
-import SearchBar from '../components/SearchBar.jsx';
+import React from "react";
+import StockList from "../components/StockList.jsx";
+import SearchBar from "../components/SearchBar.jsx";
+import RenderList from "../components/renderList.jsx";
 
 const CompanySearch = ({
-    whichTab, 
-    togglePopup, 
-    favorites, 
-    buys, 
-    buysListChangeHandler,
-    favsListChangeHandler,
-    stockListChangeHandler,
-    name,
-    nameChangeHandler,
+  whichTab,
+  togglePopup,
+  favorites,
+  buys,
+  buysListChangeHandler,
+  favsListChangeHandler,
+  stockListChangeHandler,
+  name,
+  nameChangeHandler,
+  email
 }) => {
     
     let listOfCompanies;
@@ -30,7 +32,7 @@ const CompanySearch = ({
       );
     } else if (whichTab == "3") {
       listOfCompanies = (
-        <div>
+        <div >
           <RenderList list={buys} togglePopup={togglePopup} />
         </div>
       );
@@ -38,6 +40,9 @@ const CompanySearch = ({
     
     return ( 
         <div>
+            <h2 className="stocks-title">Stocks</h2>
+            <hr className="searchbar-line"></hr>
+            <section className="searchbar">
             <SearchBar 
                 whichTab={whichTab}
                 buysListChangeHandler={buysListChangeHandler}
@@ -46,8 +51,9 @@ const CompanySearch = ({
                 name={name}
                 nameChangeHandler={nameChangeHandler}
             />
-
-            {listOfCompanies}
+            </section>
+            <hr className="searchbar-line"></hr>
+              {listOfCompanies}
         </div>
      );
 }

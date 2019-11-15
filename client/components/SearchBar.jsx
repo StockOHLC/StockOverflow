@@ -3,13 +3,9 @@ import React, {useState} from 'react'
 const SearchBar = (props)=>{
   let search;
   if(props.whichTab == '1'){
-     search=( <form >
-    
-
-
-      <label>Search Companies:     </label>
-
-      <input type="text" value={props.name} onChange={props.nameChangeHandler} required></input>
+     search=( <form className="searchbar">
+      <label>Search Companies:</label>
+      <input className="searchbar-input" type="text" value={props.name} onChange={props.nameChangeHandler} required></input>
       </form>);
   }
   else{
@@ -19,17 +15,16 @@ const SearchBar = (props)=>{
     
   }
   return (
-    
     <div>
-      {search}
-      <div><span onClick = {()=>props.buysListChangeHandler()}>
-        Buys  
-      </span> <span>  </span>  
-      <span onClick ={()=>props.favsListChangeHandler()}>
-        Favorites
-      </span></div>
+      <div className="search-button">
+        {search}
+        {/* <button className="search-button-button" type="submit">Submit</button> */}
+      </div>  
+      <div>
+        <span className="search-button-buys" onClick = {()=>props.buysListChangeHandler()}>Buys</span>   
+        <span className="search-button-favorites" onClick ={()=>props.favsListChangeHandler()}>Favorites</span>
+      </div>
     </div>
-
   )
 }
 export default SearchBar;

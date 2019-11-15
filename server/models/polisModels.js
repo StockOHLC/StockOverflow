@@ -16,13 +16,24 @@ mongoose
 
 const Schema = mongoose.Schema;
 
+const SALT_FACTOR = 10;
+const bcrypt = require('bcryptjs');
 //userSchema
 const userSchema = new Schema({
-  email_address: { type: String, required: true },
+  email_address: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   first_name: { type: String, required: true },
   last_name: String,
   favorites: [String]
+});
+
+userSchema.pre('save', function(next) {     
+  if(this.password) {                                                                                                                                                        
+      var salt = bcrypt.genSaltSync(10)                                                                                                                                     
+      this.password  = bcrypt.hashSync(this.password, salt)
+      console.log(this.password)                                                                                                                
+  }              //                                                                                                                                                            
+  return next();
 });
 
 const User = mongoose.model("user", userSchema);

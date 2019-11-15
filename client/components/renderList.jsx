@@ -1,5 +1,6 @@
-import React from 'react';
-import StockBox from '../components/StockBox'
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+import StockBox from '../components/StockBox';
 const RenderList = (props) =>{
 let arr_favs = [];
 const snp500 = {
@@ -557,6 +558,19 @@ const snp500 = {
         "MAC"                      :                                                  "Macerich Company"                                                         ,           
                 "NWS"                                 :                                          "News Corporation Class B"                                      ,                      
 };
+
+// const [list, updateList] = useState(null);
+
+// useEffect(() => {
+//   axios.post('stocks/buys', {
+//     email_address: props.email
+//   }).then(res => {
+//     console.log(res)
+//   })
+// }, [])
+
+
+
 if(props.list.length >0){
   for(let i = 0; i< props.list.length; i++){
     arr_favs.push(<StockBox key={i} togglePopup={props.togglePopup} stockName={snp500[props.list[i]]} stockSymbol ={props.list[i]}/>)

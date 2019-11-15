@@ -7,12 +7,12 @@ const SelectedCompany = props => {
       {props.isPicked ? (
         <StockPopUp
           userName={props.userName}
+          favorites = {props.favorites}
           symbol={props.companySymbol}
           companyName={props.companyName}
           closePopup={props.togglePopup}
         />
       ) : null}
-      />
     </div>
   );
 };

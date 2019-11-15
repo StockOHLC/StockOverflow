@@ -1,11 +1,62 @@
-import React from "react";
+import React, { Component } from "react";
+import Axios from "axios";
 
-const News = props => {
-  return (
-    <div>
-      <div>This is where the news will be</div>
-    </div>
-  );
-};
+class News extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    console.log("IS PICKED", this.props.isPicked);
+    fetch("/news/topNews")
+      .then(result => result.json())
+      .then(result => {
+        console.log("in fetch", result);
+        this.props.newsChangeHandler(result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  componentDidUpdate() {
+    if (this.props.isPicked == true) {
+      console.log(this.props.companyName);
+      fetch("/news/currentNews", {
+        method: "POST",
+        body: JSON.stringify(this.props.companyName)
+      })
+        .then(result => result.json())
+        .then(result => {
+          console.log("in fetch", result);
+          this.props.newsChangeHandler(result);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+
+  render() {
+    console.log("props on render", this.props);
+    const newsArray = [];
+    for (let i = 0; i < this.props.news.length; i++) {
+      newsArray.push(
+        <div key={"key " + i} className="article">
+          <a href={this.props.news[i].url}>{this.props.news[i].title}</a>
+          <div>{this.props.news[i].content}</div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="news-div">
+        <h2 className="news-div-title">News</h2>
+        <hr className="news-div-line"></hr>
+        <div className="news-div-links" id="newsFeed">{newsArray}</div>
+      </div>
+    )
+  }
+}
 
 export default News;
