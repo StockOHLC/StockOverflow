@@ -8,17 +8,20 @@ const StockPopup = props => {
   const [graphInfo, updateData] = useState({
     stockData: {},
     isLoading: true
+    // price: 0
   });
 
   useEffect(() => {
     fetch(`/stocks/getAllPastStocks/${props.symbol}`)
       .then(data => data.json())
       .then(data => {
-        console.log(data);
+        console.log("data: ", data);
         updateData({
           stockData: data,
           isLoading: false
+          // price: Object.values(data.changes[0])[0]
         });
+        // console.log(Object.values(data.changes[0])[0]);
       });
   }, []);
 
@@ -49,38 +52,38 @@ const StockPopup = props => {
   };
   // console.log("this is graph Info", graphInfo);
   return (
-      <div>
-        {graphInfo.isLoading ? (
-          // <div className="sweet-loading">
-          //   <ClipLoader
-          //   css={override}
-          //   sizeUnit={"px"}
-          //   size={150}
-          //   color={'#123abc'}
-          //   loading={graphInfo.isLoading}
-          // />
-          // </div>
-          <div></div>
-        ) : (
-          <div>
-            <p>
-              {props.companyName},{props.symbol} Today's Price {price}!
-              <button onClick={handleFav}>Favorite</button>
-            </p>
-            <StockGraphDisplay data={graphInfo.stockData} />
-            <StockInfoDisplay
-              data={graphInfo.stockData}
-              userName={props.userName}
-              stockName={props.companyName}
-              stockSymbol={props.symbol}
-            />
-            {/* back button instead of close button? */}
-            <span className="closeButton" onClick={handleSave}>
-              X
-            </span>
-          </div>
-        )}
-      </div>
+    <div>
+      {graphInfo.isLoading ? (
+        // <div className="sweet-loading">
+        //   <ClipLoader
+        //   css={override}
+        //   sizeUnit={"px"}
+        //   size={150}
+        //   color={'#123abc'}
+        //   loading={graphInfo.isLoading}
+        // />
+        // </div>
+        <div></div>
+      ) : (
+        <div>
+          <p>
+            {/* {props.companyName},{props.symbol} Today's Price {price}! */}
+            <button onClick={handleFav}>Favorite</button>
+          </p>
+          <StockGraphDisplay data={graphInfo.stockData} />
+          <StockInfoDisplay
+            data={graphInfo.stockData}
+            userName={props.userName}
+            stockName={props.companyName}
+            stockSymbol={props.symbol}
+          />
+          {/* back button instead of close button? */}
+          <span className="closeButton" onClick={handleSave}>
+            X
+          </span>
+        </div>
+      )}
+    </div>
   );
 };
 

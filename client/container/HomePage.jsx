@@ -7,7 +7,6 @@ import CompanySearch from "./CompanySearch.jsx";
 import SelectedCompany from "./SelectedCompany.jsx";
 import NewsChat from "./NewsChat.jsx";
 import SignupPopup from "../components/SignupPopup";
-import Chat from "./../components/Chat";
 
 //socket-client connection
 import io from "socket.io-client";
@@ -23,12 +22,18 @@ class HomePage extends Component {
       enteredUsername: "",
       enteredPassword: "",
 
+      // signup info
+      firstname: "",
+      lastname: "",
+      password: "",
+      // also used for other parts of app
+      email: "",
+
       // default tab showing the stocklist component (rather than favs/buys)
       whichTab: "1",
 
       name: "", // used for the search bar
 
-      email: "",
       username: "",
       favorites: [],
       buys: [],
@@ -46,7 +51,7 @@ class HomePage extends Component {
     this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
     this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
     this.nameChangeHandler = this.nameChangeHandler.bind(this);
-    this.SignupClick = this.SignupClick.bind(this);
+    // this.SignupClick = this.SignupClick.bind(this);
     this.LoginClick = this.LoginClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.emailHandler = this.emailHandler.bind(this);
@@ -76,68 +81,60 @@ class HomePage extends Component {
   // }, []);
 
   // functions controlling login and sign up
-  SignupClick() {
-    fetch("/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email_address: this.state.enteredUsername,
-        password: this.state.enteredPassword
-      })
-    })
-      .then(body => body.json())
-      .then(body => {
-        if (body.message === "No Such User") {
-          fetch("/user/signup", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: {
-              email_address: this.state.enteredUsername,
-              password: this.state.enteredPassword,
-              first_name: "dummy",
-              last_name: "dummy"
-            }
-          })
-            .then(data => data.json())
-            .then(data => {
-              alert("account created!");
-            });
-        } else {
-          alert("account already exist!");
-        }
-      });
-  }
+  //
+  // NOT USED. SWITCHED TO HANDLE SUBMIT FOR SIGNUP POPUP
+  //
+  // SignupClick() {
+  //   fetch("/user/login", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       email_address: this.state.enteredUsername,
+  //       password: this.state.enteredPassword
+  //     })
+  //   })
+  //     .then(body => body.json())
+  //     .then(body => {
+  //       if (body.message === "No Such User") {
+  //         fetch("/user/signup", {
+  //           method: "POST",
+  //           headers: {
+  //             "Content-Type": "application/json"
+  //           },
+  //           body: {
+  //             email_address: this.state.enteredUsername,
+  //             password: this.state.enteredPassword,
+  //             first_name: "dummy",
+  //             last_name: "dummy"
+  //           }
+  //         })
+  //           .then(data => data.json())
+  //           .then(data => {
+  //             alert("account created!");
+  //           });
+  //       } else {
+  //         alert("account already exist!");
+  //       }
+  //     });
+
+  // }
   LoginClick() {
     console.log("inside login click");
-    fetch("/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
+
+    axios
+      .post("/user/login", {
         email_address: this.state.enteredUsername,
         password: this.state.enteredPassword
       })
-    })
-      .then(body => body.json())
-      .then(body => {
-        if (body.message === "No Such User") {
-          alert("Your password does not match with our data!");
-        } else if (body.message === "Wrong password") {
-          alert("Your password does not match with our data!");
-        } else {
-          alert("welcome!");
-          this.setState({
-            favorites: body.favorites,
-            email: body.email_address,
-            buys: body.buys,
-            username: body.user_name
-          });
-        }
+      .then(res => {
+        console.log("login: ", res);
+        console.log("login data: ", res.data);
+        console.log("login data email address: ", res.data.email_address);
+        this.setState({
+          email: res.data.email_address
+        });
       })
       .finally(() => {
         this.setState({
@@ -162,7 +159,7 @@ class HomePage extends Component {
   }
   usernameChangeHandler(event) {
     event.preventDefault();
-    // console.log(event.target.value);
+    console.log(event.target.value);
     this.setState({ enteredUsername: event.target.value });
   }
   nameChangeHandler(event) {
@@ -178,15 +175,36 @@ class HomePage extends Component {
     }
   }
 
-  handleSumbit(e) {
+  handleSubmit(e) {
     e.preventDefault();
     alert("Your account has been created");
-    axios.post("/user/signup", {
-      first_name: this.state.firstname,
-      last_name: this.state.lastname,
-      email_address: this.state.email,
-      password: this.state.password
-    });
+    // axios.post("/user/signup", {
+    //   first_name: this.state.firstname,
+    //   last_name: this.state.lastname,
+    //   email_address: this.state.email,
+    //   password: this.state.password
+    // });
+
+    axios
+      .post("/user/signup", {
+        email_address: this.state.email,
+        password: this.state.password,
+        first_name: this.state.firstname,
+        last_name: this.state.lastname
+      })
+      .then(res => {
+        console.log("signup: ", res);
+        console.log("signup data: ", res.data);
+        console.log("signup data email address: ", res.data.email_address);
+        this.setState({
+          email: res.data.email_address
+        });
+      })
+      .finally(() => {
+        this.setState({
+          password: ""
+        });
+      });
   }
 
   passwordHandler(e) {
@@ -247,7 +265,7 @@ class HomePage extends Component {
     return (
       <div>
         <Header
-          SignupClick={this.SignupClick}
+          // SignupClick={this.SignupClick}
           LoginClick={this.LoginClick}
           passwordChangeHandler={this.passwordChangeHandler}
           usernameChangeHandler={this.usernameChangeHandler}
@@ -261,7 +279,7 @@ class HomePage extends Component {
             lastnameHandler={this.lastnameHandler}
             emailHandler={this.emailHandler}
             passwordHandler={this.passwordHandler}
-            handleSumbit={this.handleSumbit}
+            handleSubmit={this.handleSubmit}
             toggleSignupPopup={this.toggleSignupPopup}
           />
         ) : null}
@@ -281,6 +299,7 @@ class HomePage extends Component {
                   name={this.state.name}
                   nameChangeHandler={this.nameChangeHandler}
                   togglePopup={this.togglePopup}
+                  email={this.state.email}
                 />
               )}
             ></Route>

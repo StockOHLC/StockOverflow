@@ -1,67 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const SignupPopup = props => {
-    
-    const handleSave = () => {
-        props.toggleSignupPopup();
-      };
+  const handleSave = () => {
+    props.toggleSignupPopup();
+  };
 
-    return (
-        <div className = 'popup'>
-            <div className = 'popup_inner'>
-        
+  return (
+    <div className="popup">
+      <div className="popup_inner">
         <form onSubmit={props.handleSubmit}>
-      
-        <span className= "closeButton" onClick={handleSave}>X</span>
-            <div>
+          <span className="closeButton" onClick={handleSave}>
+            X
+          </span>
+          <div>
             <label>
-                First name:
-                <input
-                type = "text"
-                name = "firstname"
-                onChange = {props.firstnameHandler}
-            />
+              First name:
+              <input
+                type="text"
+                name="firstname"
+                onChange={props.firstnameHandler}
+              />
             </label>
-            </div>
+          </div>
 
-            <div>
+          <div>
             <label>
-                Last name:
-                <input 
-                type ="text" 
-                name = "lastname"
-                onChange = {props.lastnameHandler}
-            />
+              Last name:
+              <input
+                type="text"
+                name="lastname"
+                onChange={props.lastnameHandler}
+              />
             </label>
-            </div>
-            
-            <div>
-            <label>
-                Email:
-                <input 
-                type = "text"
-                name = "email"
-                onChange = {props.emailHandler}
-            />
-            </label>
-            </div>
+          </div>
 
-            <div>
+          <div>
             <label>
-                Password:
-                <input 
-                    type = "password"
-                    name = "password"
-                    onChange = {props.passwordHandler}
-                />
+              Email:
+              <input type="text" name="email" onChange={props.emailHandler} />
             </label>
-            </div>
-            
-            <input type = "submit" value = "Submit" />
+          </div>
+
+          <div>
+            <label>
+              Password:
+              <input
+                type="password"
+                name="password"
+                onChange={props.passwordHandler}
+              />
+            </label>
+          </div>
+
+          <input type="submit" value="Submit" />
         </form>
-        </div> 
-        </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
 export default SignupPopup;

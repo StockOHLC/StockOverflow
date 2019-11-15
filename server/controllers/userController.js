@@ -1,15 +1,17 @@
 const models = require("../models/polisModels");
 // bcrypt or cookies for stretch
 const userController = {};
-const bcrypt = require('bcryptjs')
+const bcrypt = require("bcryptjs");
 
 userController.createUser = (req, res, next) => {
   // console.log("I am inside create user");
   const { email_address, password, first_name, last_name } = req.body;
-  console.log("i am in create user")
+  console.log("i am in create user");
+  console.log(req.body);
   models.User.create({ email_address, password, first_name, last_name })
     .then(result => {
-      res.locals.userInfo = result;
+      res.locals.userInfo = {};
+      res.locals.userInfo.email_address = result.email_address;
       res.locals.ssid = result._id;
       res.locals.isLoggedIn = false;
       next();
@@ -30,25 +32,27 @@ userController.verifyUser = (req, res, next) => {
   // console.log('req.body is', req.body)
   models.User.findOne({ email_address }, (err, result) => {
     if (result === null) {
-      console.log("user put a incorrect username or password")
+      console.log("user put a incorrect username or password");
       res.locals.userInfo = { message: "No Such User" };
       return next(res.locals.userInfo);
     } else {
       bcrypt.compare(password, result.password, (error, match) => {
-        if (error) { 
+        if (error) {
           return next(error);
         }
         if (match) {
+          console.log(result);
+          res.locals.userInfo = {};
+          res.locals.userInfo.email_address = result.email_address;
           res.locals.ssid = result._id;
           return next();
-        } else { 
-          return res.json({message: "please enter the correct password"})
+        } else {
+          return res.json({ message: "please enter the correct password" });
         }
-      })
+      });
     }
   });
 };
-
 
 userController.getFavs = (req, res, next) => {
   console.log("??????????????????????");
@@ -135,6 +139,5 @@ userController.removeFav = (req, res, next) => {
   });
   next();
 };
-
 
 module.exports = userController;
