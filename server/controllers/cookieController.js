@@ -5,6 +5,7 @@ const cookieController = {};
 // @param runInNewContext
 
 cookieController.setSSIDCookie = (req, res, next) => {
+    console.log("i am in ssid cookiecontroller")
     if (res.locals.isLoggedIn === false) { 
     res.cookie('ssid', res.locals.ssid, {httpOnly: true})
     return next();

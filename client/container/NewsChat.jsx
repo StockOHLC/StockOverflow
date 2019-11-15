@@ -6,7 +6,13 @@ import Chat from "./../components/Chat.jsx";
 const NewsChat = props => {
   return (
     <div className="news-chat-div">
-      <News></News>
+      <News
+        isPicked={props.isPicked}
+        companySymbol={props.companySymbol}
+        companyName={props.companyName}
+        news={props.news}
+        newsChangeHandler={props.newsChangeHandler}
+      ></News>
       <Chat
         messages={props.messages}
         sendChatAction={props.sendChatAction}

@@ -5,11 +5,11 @@ const stocksController = {};
 
 stocksController.getBuys = (req, res, next) => {
   console.log("inside get buy");
-  const { email_address, password } = req.body;
+  const { email_address } = req.body;
   models.Buy.find({ email_address }, (err, buys) => {
     if (err)
       return next("Error in stocksController.getBuys: " + JSON.stringify(err));
-    res.locals.userInfo.buys = buys;
+    res.locals.buys = buys;
     return next();
   });
 };
@@ -50,9 +50,7 @@ stocksController.deleteBuy = (req, res, next) => {
 };
 
 stocksController.getAllPastStock = (req, res, next) => {
-  console.log("inside get all past stock");
   const symbol = req.params.stockId;
-  console.log("symbol ins get all paststock si", symbol);
   models.PastStock.findOne({ stockSymbol: symbol }, (err, result) => {
     console.log(result);
     if (err) {
@@ -65,8 +63,6 @@ stocksController.getAllPastStock = (req, res, next) => {
       )
         .then(result => result.json())
         .then(result => {
-          const resultSymbol = result["Meta Data"]["2. Symbol"];
-          const price = result["Time Series (Daily)"]["4. close"];
           const finalResult = [];
           for (let key in result["Time Series (Daily)"]) {
             let innerObj = {};
@@ -86,7 +82,6 @@ stocksController.getAllPastStock = (req, res, next) => {
     } else {
       res.locals.pastStock = result;
       return next();
-      console.log("result if you find ur shit", result);
     }
   });
 };

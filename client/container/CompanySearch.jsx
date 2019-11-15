@@ -1,17 +1,19 @@
-import React from 'react';
-import StockList from '../components/StockList.jsx';
-import SearchBar from '../components/SearchBar.jsx';
+import React from "react";
+import StockList from "../components/StockList.jsx";
+import SearchBar from "../components/SearchBar.jsx";
+import RenderList from "../components/renderList.jsx";
 
 const CompanySearch = ({
-    whichTab, 
-    togglePopup, 
-    favorites, 
-    buys, 
-    buysListChangeHandler,
-    favsListChangeHandler,
-    stockListChangeHandler,
-    name,
-    nameChangeHandler,
+  whichTab,
+  togglePopup,
+  favorites,
+  buys,
+  buysListChangeHandler,
+  favsListChangeHandler,
+  stockListChangeHandler,
+  name,
+  nameChangeHandler,
+  email
 }) => {
     
     let listOfCompanies;
