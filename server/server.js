@@ -14,18 +14,6 @@ const io = socketIO(server);
 // const io = require("socket.io")(http); //http is the server- do we do .createServer(http)?
 
 //SOCKETS
-// io.on("connection", socket => {
-//   console.log("made some connections");
-//   socket.emit("message", "fuck");
-//   socket.on("disconnect", () => {
-//     console.log("user disconnected");
-//   });
-// });
-
-const http = require('http').createServer(app);
-const io = require('socket.io')(http); //http is the server- do we do .createServer(http)?
-
-//SOCKETS
 io.on('connection', (socket) => {
   console.log('made some connections')
   socket.emit('message', 'fuck');
@@ -33,6 +21,7 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 })
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,6 +32,7 @@ const usersRouter = require("./routes/userRouter");
 const pastStockRouter = require("./routes/pastStocksRouter");
 const messageRouter = require("./routes/messageRouter");
 const newsRouter = require("./routes/newsRouter");
+const linkedinRouter = require("./routes/linkedinRouter");
 
 //WEBPACK BUILD
 app.use("/build", express.static(path.join(__dirname, "../build")));
@@ -53,12 +43,13 @@ app.use("/stocks", stocksRouter);
 app.use("/pastStock", pastStockRouter);
 app.use("/messages", messageRouter);
 app.use("/news", newsRouter);
-// app.use('/api', apiRouter);
+app.use("/oauth/linkedin", linkedinRouter);
 
 //MAIN PAGE
 app.use("/", (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, "../index.html"));
 });
+
 
 // Chat socket io
 io.on("connection", socket => {
