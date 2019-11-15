@@ -5,7 +5,7 @@ const stocksController = {};
 
 stocksController.getBuys = (req, res, next) => {
   console.log("inside get buy");
-  const { email_address, password } = req.body;
+  const { email_address } = req.body;
   models.Buy.find({ email_address }, (err, buys) => {
     if (err)
       return next("Error in stocksController.getBuys: " + JSON.stringify(err));

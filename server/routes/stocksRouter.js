@@ -7,6 +7,7 @@ const router = express.Router();
 // });
 
 router.get("/buys", stocksController.getBuys, (req, res) => {
+  console.log(res.locals.buys);
   res.status(200).json({ stocks: res.locals.buys });
 });
 
