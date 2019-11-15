@@ -11,6 +11,7 @@ sessionController.isLoggedIn = (req, res, next) => {
             return next();
         } else { 
             res.locals.isLoggedIn = true;
+            console.log("sessionController.isloggedin next")
             return next();
         }
     })
@@ -18,14 +19,13 @@ sessionController.isLoggedIn = (req, res, next) => {
 
 sessionController.startSession = (req, res, next) => {
     const ssid = res.locals.ssid;
-    console.log("this is the tpye of ssid",  res.locals.ssid )
-    // console.log("THIS IS RES.LOCALS.SSID>>>>>>>>>>>>", ssid)
+    console.log("THIS IS RES.LOCALS.SSID>>>>>>>>>>>>", ssid)
     Session.create({ cookieId: ssid })
         .then(()=> {
-            console.log("i am in then")
+            console.log("i am in startSession: created successfully")
             return next()})
         .catch(err => { 
-            console.log("this is the error>>>>>>", err)
+            console.log("i am in startSession: error ", err)
             
            return next(err)
         })

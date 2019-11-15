@@ -59,7 +59,6 @@ class HomePage extends Component {
     this.firstnameHandler = this.firstnameHandler.bind(this);
     this.lastnameHandler = this.lastnameHandler.bind(this);
 
-    // function
     this.togglePopup = this.togglePopup.bind(this);
     this.toggleSignupPopup = this.toggleSignupPopup.bind(this);
 
@@ -72,54 +71,6 @@ class HomePage extends Component {
     this.sendChatAction = this.sendChatAction.bind(this);
   }
 
-  // useEffect(() => {
-  //   //socket
-  //   socket.on('message', msg => {
-  //     //display the messages
-  //     console.log('we got a message', msg)
-  //   });
-  // }, []);
-
-  // functions controlling login and sign up
-  //
-  // NOT USED. SWITCHED TO HANDLE SUBMIT FOR SIGNUP POPUP
-  //
-  // SignupClick() {
-  //   fetch("/user/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       email_address: this.state.enteredUsername,
-  //       password: this.state.enteredPassword
-  //     })
-  //   })
-  //     .then(body => body.json())
-  //     .then(body => {
-  //       if (body.message === "No Such User") {
-  //         fetch("/user/signup", {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json"
-  //           },
-  //           body: {
-  //             email_address: this.state.enteredUsername,
-  //             password: this.state.enteredPassword,
-  //             first_name: "dummy",
-  //             last_name: "dummy"
-  //           }
-  //         })
-  //           .then(data => data.json())
-  //           .then(data => {
-  //             alert("account created!");
-  //           });
-  //       } else {
-  //         alert("account already exist!");
-  //       }
-  //     });
-
-  // }
   LoginClick() {
     console.log("inside login click");
 
@@ -128,12 +79,15 @@ class HomePage extends Component {
         email_address: this.state.enteredUsername,
         password: this.state.enteredPassword
       })
+
       .then(res => {
         console.log("login: ", res);
         console.log("login data: ", res.data);
         console.log("login data email address: ", res.data.email_address);
         this.setState({
-          email: res.data.email_address
+          email: res.data.email_address,
+          favorites: res.data.favorites,
+          username: res.data.email_address
         });
       })
       .finally(() => {
@@ -159,7 +113,6 @@ class HomePage extends Component {
   }
   usernameChangeHandler(event) {
     event.preventDefault();
-    console.log(event.target.value);
     this.setState({ enteredUsername: event.target.value });
   }
   nameChangeHandler(event) {
@@ -255,7 +208,6 @@ class HomePage extends Component {
     if (!socket) {
       socket = io(this.state.endpoint);
       socket.on("chat message", message => {
-        console.log("message from server: ", message);
         this.setState(prevState => ({
           messages: [...prevState.messages, message]
         }));
@@ -265,7 +217,6 @@ class HomePage extends Component {
     return (
       <div>
         <Header
-          // SignupClick={this.SignupClick}
           LoginClick={this.LoginClick}
           passwordChangeHandler={this.passwordChangeHandler}
           usernameChangeHandler={this.usernameChangeHandler}
@@ -296,6 +247,7 @@ class HomePage extends Component {
                   buysListChangeHandler={this.buysListChangeHandler}
                   stockListChangeHandler={this.stockListChangeHandler}
                   favsListChangeHandler={this.favsListChangeHandler}
+                  favorites={this.state.favorites}
                   name={this.state.name}
                   nameChangeHandler={this.nameChangeHandler}
                   togglePopup={this.togglePopup}
@@ -312,6 +264,7 @@ class HomePage extends Component {
                 <SelectedCompany
                   isPicked={this.state.isPicked}
                   userName={this.state.email}
+                  favorites={this.state.favorites}
                   companySymbol={this.state.companySymbol}
                   companyName={this.state.companyName}
                   togglePopup={this.togglePopup}
