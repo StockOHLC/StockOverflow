@@ -54,8 +54,8 @@ class HomePage extends Component {
     this.passwordHandler = this.passwordHandler.bind(this);
     this.firstnameHandler = this.firstnameHandler.bind(this);
     this.lastnameHandler = this.lastnameHandler.bind(this);
+    this.signUpLinkedIn = this.signUpLinkedIn.bind(this);
 
-    // function
     this.togglePopup = this.togglePopup.bind(this);
     this.toggleSignupPopup = this.toggleSignupPopup.bind(this);
 
@@ -146,6 +146,15 @@ class HomePage extends Component {
           enteredPassword: ""
         });
       });
+  }
+
+  signUpLinkedIn() {
+    fetch('/linkedin/auth')
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data);
+        alert('Successfully logged in with linkedin')
+      })
   }
 
   stockListChangeHandler() {
@@ -254,16 +263,18 @@ class HomePage extends Component {
           enteredPassword={this.state.enteredPassword}
           toggleSignupPopup={this.toggleSignupPopup}
         />
-      {this.state.isSignupPicked? 
-        <SignupPopup  
-          firstnameHandler = {this.firstnameHandler} 
-          lastnameHandler = {this.lastnameHandler} 
-          emailHandler = {this.emailHandler} 
-          passwordHandler = {this.passwordHandler} 
-          handleSubmit = {this.handleSubmit } 
-          toggleSignupPopup = {this.toggleSignupPopup} 
-        /> : null}
-        
+        {this.state.isSignupPicked ? (
+          <SignupPopup
+            firstnameHandler={this.firstnameHandler}
+            lastnameHandler={this.lastnameHandler}
+            emailHandler={this.emailHandler}
+            passwordHandler={this.passwordHandler}
+            handleSumbit={this.handleSumbit}
+            toggleSignupPopup={this.toggleSignupPopup}
+            signUpLinkedIn={this.signUpLinkedIn}
+          />
+        ) : null}
+
         <section>
           {/* CompanySearch uses SearchBar.jsx and Stocklist.jsx */}
           <Switch>
