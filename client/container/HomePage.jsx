@@ -9,6 +9,7 @@ import NewsChat from "./NewsChat.jsx";
 import SignupPopup from "../components/SignupPopup";
 import Chat from "./../components/Chat";
 
+
 //socket-client connection
 import io from "socket.io-client";
 // const socket = io("ws://localhost:3000", { transports: ["websocket"] });
@@ -111,8 +112,8 @@ class HomePage extends Component {
         }
       });
   }
+
   LoginClick() {
-    console.log("inside login click");
     fetch("/user/login", {
       method: "POST",
       headers: {
@@ -135,7 +136,7 @@ class HomePage extends Component {
             favorites: body.favorites,
             email: body.email_address,
             buys: body.buys,
-            username: body.user_name
+            username: body.email_address
           });
         }
       })
@@ -171,7 +172,6 @@ class HomePage extends Component {
   }
   usernameChangeHandler(event) {
     event.preventDefault();
-    // console.log(event.target.value);
     this.setState({ enteredUsername: event.target.value });
   }
   nameChangeHandler(event) {
@@ -187,7 +187,7 @@ class HomePage extends Component {
     }
   }
 
-  handleSubmit(e) {
+  handleSubmit(e) { 
     e.preventDefault();
     alert("Your account has been created");
     axios.post("/user/signup", {
@@ -246,7 +246,6 @@ class HomePage extends Component {
     if (!socket) {
       socket = io(this.state.endpoint);
       socket.on("chat message", message => {
-        console.log("message from server: ", message);
         this.setState(prevState => ({
           messages: [...prevState.messages, message]
         }));
@@ -288,6 +287,7 @@ class HomePage extends Component {
                   buysListChangeHandler={this.buysListChangeHandler}
                   stockListChangeHandler={this.stockListChangeHandler}
                   favsListChangeHandler={this.favsListChangeHandler}
+                  favorites = {this.state.favorites}
                   name={this.state.name}
                   nameChangeHandler={this.nameChangeHandler}
                   togglePopup={this.togglePopup}
@@ -303,6 +303,7 @@ class HomePage extends Component {
                 <SelectedCompany
                   isPicked={this.state.isPicked}
                   userName={this.state.email}
+                  favorites = {this.state.favorites}
                   companySymbol={this.state.companySymbol}
                   companyName={this.state.companyName}
                   togglePopup={this.togglePopup}

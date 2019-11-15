@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import StockInfoDisplay from "./StockInfoDisplay.jsx";
 // import ClipLoader from "react-spinners/ClipLoader";
 import StockGraphDisplay from "./StockGraphDisplay.jsx";
+import axios from "axios";
 
 const StockPopup = props => {
   let price = 0;
@@ -41,12 +42,38 @@ const StockPopup = props => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
+          favorites: props.favorites,
           email_address: props.userName,
           favStockId: props.symbol
         })
-      }).catch(err => console.log(err));
+      }) 
+      .then( result=> result.json())
+      .then( result => {
+        setState({
+          favorites: result.favorites
+        })
+      })
+      .catch(err => console.log(err));
     }
   };
+
+  // const handleUnfav = () => {
+  //   if (!props.userName) alert("please sign in!");
+  //   else {
+  //   axios.post('/user/removefav', {
+  //     body: JSON.stringify({
+  //       favorites: props.favorites,
+  //       removeStockId : props.symbol,
+  //       email_address: props.userName,
+  //     })
+  //   })
+  //   .then( result => result.json())
+  //   .then( result => {
+  //     setState({
+  //       favorites:result.favorites
+  //     })
+  //   })}
+  // }
   // console.log("this is graph Info", graphInfo);
   return (
       <div>
@@ -65,7 +92,15 @@ const StockPopup = props => {
           <div>
             <p>
               {props.companyName},{props.symbol} Today's Price {price}!
-              <button onClick={handleFav}>Favorite</button>
+              
+              {/* {props.favorites.forEach(element => {
+                if (element === props.symbol) {  */}
+                 {/* <button onClick = {handleUnfav} > Unfavorite </button> */}
+                {/* } else {  */}
+                 <button onClick={handleFav}>Favorite</button>
+                {/* }
+              })} */}
+
             </p>
             <StockGraphDisplay data={graphInfo.stockData} />
             <StockInfoDisplay
