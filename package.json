@@ -20,7 +20,7 @@
     "bcrypt": "^3.0.6",
     "bcryptjs": "^2.4.3",
     "@material-ui/core": "^4.6.1",
-    "chart.js": "^2.9.2",
+    "chart.js": "^2.9.4",
     "cors": "^2.8.5",
     "http": "0.0.0",
     "i": "^0.3.6",
