@@ -58,7 +58,7 @@
     "express": "^4.17.1",
     "file-loader": "^4.2.0",
     "install": "^0.13.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "nodemon": "^1.19.4",
     "pg": "^7.12.1",
     "react": "^16.11.0",
